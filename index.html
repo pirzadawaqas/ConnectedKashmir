@@ -1,0 +1,3505 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full bg-slate-950 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0f172a">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Personal Life OS - Grid Edition</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0f172a;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+    .bento-card {
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(51, 65, 85, 0.65);
+      border-radius: 1rem;
+      transition: all 0.2s ease;
+    }
+    .bento-card:hover {
+      border-color: rgba(99, 102, 241, 0.45);
+    }
+  </style>
+</head>
+<body class="h-full flex flex-col antialiased selection:bg-indigo-500 selection:text-white">
+
+  <!-- Top Mobile Bar -->
+  <header class="lg:hidden flex items-center justify-between px-4 py-3 bg-slate-900 border-b border-slate-800">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center font-bold text-white shadow-md">
+        OS
+      </div>
+      <span class="font-bold text-base tracking-tight text-white">LifeOS Grid</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span id="mobileLiveClock" class="text-xs font-mono text-slate-400"></span>
+      <button id="mobileMenuBtn" type="button" class="p-2 rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="flex-1 flex overflow-hidden">
+    <!-- Sidebar Navigation -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 border-r border-slate-800 flex flex-col transition-transform duration-200 -translate-x-full lg:translate-x-0 lg:static">
+      <!-- App Brand -->
+      <div class="p-5 flex items-center justify-between border-b border-slate-800/80">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-500 to-violet-500 flex items-center justify-center font-bold text-white shadow-lg shadow-indigo-500/20">
+            OS
+          </div>
+          <div>
+            <h1 class="font-bold text-sm tracking-tight text-white">Personal LifeOS</h1>
+            <div class="flex items-center gap-1.5 mt-0.5">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <span class="text-xs text-slate-400">100% Offline & Local</span>
+            </div>
+          </div>
+        </div>
+        <button id="closeSidebarBtn" type="button" class="lg:hidden text-slate-400 hover:text-white p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        <button type="button" data-tab="overview" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-300 hover:text-white hover:bg-slate-800/80 active">
+          <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path>
+          </svg>
+          <span>Overview</span>
+        </button>
+
+        <button type="button" data-tab="schedule" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800/80">
+          <svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+          </svg>
+          <span>Daily Schedule</span>
+          <span id="navScheduleBadge" class="ml-auto text-[10px] px-1.5 py-0.5 rounded font-mono bg-sky-500/20 text-sky-300">0</span>
+        </button>
+
+        <button type="button" data-tab="journal" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800/80">
+          <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+          </svg>
+          <span>Daily Journal</span>
+        </button>
+
+        <button type="button" data-tab="people" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800/80">
+          <svg class="w-5 h-5 text-fuchsia-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          <span>People & Thoughts</span>
+          <span id="navPeopleBadge" class="ml-auto text-[10px] px-1.5 py-0.5 rounded font-mono bg-fuchsia-500/20 text-fuchsia-300">0</span>
+        </button>
+
+        <button type="button" data-tab="money" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800/80">
+          <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>Money & Expenses</span>
+        </button>
+
+        <button type="button" data-tab="time" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800/80">
+          <svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <span>Time & Tasks</span>
+        </button>
+
+        <button type="button" data-tab="passwords" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800/80">
+          <svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+          </svg>
+          <span>Password Vault</span>
+          <span id="vaultStatusBadge" class="ml-auto text-[10px] px-1.5 py-0.5 rounded font-mono uppercase bg-rose-500/20 text-rose-300">Locked</span>
+        </button>
+
+        <button type="button" data-tab="settings" class="nav-item w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition-all text-slate-400 hover:text-white hover:bg-slate-800/80">
+          <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+          </svg>
+          <span>Backup & Data</span>
+        </button>
+      </nav>
+
+      <!-- Quick Storage Status Info in Sidebar -->
+      <div class="p-4 border-t border-slate-800/80 bg-slate-900/50">
+        <div class="flex items-center justify-between text-xs text-slate-400 mb-1.5">
+          <span>Local Storage</span>
+          <span id="storageUsageText" class="font-mono text-[11px] text-slate-300">Active</span>
+        </div>
+        <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+          <div class="bg-indigo-500 h-full rounded-full" style="width: 35%"></div>
+        </div>
+        <p class="text-[11px] text-slate-400 mt-2 leading-relaxed">
+          Stored privately inside your browser. Zero cloud sync.
+        </p>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 overflow-y-auto bg-slate-950 p-4 sm:p-6 lg:p-7">
+      <div class="max-w-7xl mx-auto space-y-6">
+
+        <!-- TOP BENTO GRID MODULE LAUNCHER (Always accessible Grid UI Navigation) -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5">
+          <button type="button" data-tab-link="overview" class="grid-nav-tile p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-indigo-500/60 flex flex-col items-start justify-between text-left transition group">
+            <div class="w-7 h-7 rounded-lg bg-indigo-500/15 text-indigo-400 flex items-center justify-center mb-2 group-hover:scale-105 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-white">Bento Grid</div>
+              <div class="text-[10px] text-slate-400">All-in-One</div>
+            </div>
+          </button>
+
+          <button type="button" data-tab-link="schedule" class="grid-nav-tile p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-sky-500/60 flex flex-col items-start justify-between text-left transition group">
+            <div class="w-7 h-7 rounded-lg bg-sky-500/15 text-sky-400 flex items-center justify-center mb-2 group-hover:scale-105 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-white">Schedule</div>
+              <div id="gridTileScheduleCount" class="text-[10px] text-sky-400">Daily blocks</div>
+            </div>
+          </button>
+
+          <button type="button" data-tab-link="journal" class="grid-nav-tile p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-amber-500/60 flex flex-col items-start justify-between text-left transition group">
+            <div class="w-7 h-7 rounded-lg bg-amber-500/15 text-amber-400 flex items-center justify-center mb-2 group-hover:scale-105 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-white">Journaling</div>
+              <div id="gridTileJournalCount" class="text-[10px] text-amber-400">Studio & log</div>
+            </div>
+          </button>
+
+          <button type="button" data-tab-link="people" class="grid-nav-tile p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-fuchsia-500/60 flex flex-col items-start justify-between text-left transition group">
+            <div class="w-7 h-7 rounded-lg bg-fuchsia-500/15 text-fuchsia-400 flex items-center justify-center mb-2 group-hover:scale-105 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-white">People</div>
+              <div id="gridTilePeopleCount" class="text-[10px] text-fuchsia-400">My thoughts</div>
+            </div>
+          </button>
+
+          <button type="button" data-tab-link="money" class="grid-nav-tile p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/60 flex flex-col items-start justify-between text-left transition group">
+            <div class="w-7 h-7 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center mb-2 group-hover:scale-105 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-white">Money</div>
+              <div id="gridTileMoneyVal" class="text-[10px] text-emerald-400">Cashflow</div>
+            </div>
+          </button>
+
+          <button type="button" data-tab-link="time" class="grid-nav-tile p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-cyan-500/60 flex flex-col items-start justify-between text-left transition group">
+            <div class="w-7 h-7 rounded-lg bg-cyan-500/15 text-cyan-400 flex items-center justify-center mb-2 group-hover:scale-105 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-white">Tasks & Habits</div>
+              <div id="gridTileTasksCount" class="text-[10px] text-cyan-400">Focus & Pomo</div>
+            </div>
+          </button>
+
+          <button type="button" data-tab-link="passwords" class="grid-nav-tile p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-rose-500/60 flex flex-col items-start justify-between text-left transition group">
+            <div class="w-7 h-7 rounded-lg bg-rose-500/15 text-rose-400 flex items-center justify-center mb-2 group-hover:scale-105 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-white">Passwords</div>
+              <div class="text-[10px] text-rose-400">Locked Vault</div>
+            </div>
+          </button>
+
+          <button type="button" data-tab-link="settings" class="grid-nav-tile p-3 rounded-2xl bg-slate-900/90 border border-slate-800 hover:border-violet-500/60 flex flex-col items-start justify-between text-left transition group">
+            <div class="w-7 h-7 rounded-lg bg-violet-500/15 text-violet-400 flex items-center justify-center mb-2 group-hover:scale-105 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"></path></svg>
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-white">APK & Backup</div>
+              <div class="text-[10px] text-violet-400">Mobile & Data</div>
+            </div>
+          </button>
+        </div>
+
+        <!-- ================= TAB: OVERVIEW (BENTO GRID FORMAT) ================= -->
+        <section id="tab-overview" class="tab-content space-y-5">
+          <!-- Welcome Header + Live Clock -->
+          <div class="bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div class="flex items-center gap-2 text-indigo-400 font-medium text-xs tracking-wider uppercase mb-1">
+                <span id="overviewDateBadge">Today's Briefing</span>
+                <span>•</span>
+                <span id="overviewLiveTime" class="font-mono text-emerald-400">16:27:00</span>
+              </div>
+              <h2 id="greetingHeading" class="text-xl sm:text-2xl font-bold text-white tracking-tight">Welcome back</h2>
+              <p class="text-slate-400 text-xs sm:text-sm mt-1">
+                Interactive Bento Grid workspace — manage money, daily schedule, journaling, people thoughts, tasks, and passwords locally.
+              </p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" data-tab-link="journal" class="px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-medium transition">+ Journal Entry</button>
+              <button type="button" data-tab-link="schedule" class="px-3.5 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white text-xs font-medium transition">+ Schedule Block</button>
+            </div>
+          </div>
+
+          <!-- 6-Card KPI Metric Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
+            <!-- Balance Card -->
+            <div class="bento-card p-4">
+              <div class="flex items-center justify-between text-slate-400 text-[11px] font-medium mb-2">
+                <span>Net Cashflow</span>
+                <span class="text-emerald-400">₹/$</span>
+              </div>
+              <div id="statNetBalance" class="text-lg sm:text-xl font-bold text-white truncate">₹0</div>
+              <div id="statIncomeExpenseSub" class="text-[10px] text-slate-400 mt-1 flex flex-col">
+                <span>In: <span id="statSubIncome" class="text-emerald-400 font-medium">₹0</span></span>
+                <span>Out: <span id="statSubExpense" class="text-rose-400 font-medium">₹0</span></span>
+              </div>
+            </div>
+
+            <!-- Schedule Blocks Card -->
+            <div class="bento-card p-4">
+              <div class="flex items-center justify-between text-slate-400 text-[11px] font-medium mb-2">
+                <span>Daily Schedule</span>
+                <span class="text-sky-400">🕒</span>
+              </div>
+              <div id="statScheduleBlocks" class="text-lg sm:text-xl font-bold text-white">0</div>
+              <div id="statNextScheduleSub" class="text-[10px] text-sky-400 mt-1 truncate">Time-blocked today</div>
+            </div>
+
+            <!-- Journal & People Card -->
+            <div class="bento-card p-4">
+              <div class="flex items-center justify-between text-slate-400 text-[11px] font-medium mb-2">
+                <span>People Dossier</span>
+                <span class="text-fuchsia-400">👥</span>
+              </div>
+              <div id="statPeopleCount" class="text-lg sm:text-xl font-bold text-white">0</div>
+              <div class="text-[10px] text-slate-400 mt-1">People with thoughts</div>
+            </div>
+
+            <!-- Tasks Card -->
+            <div class="bento-card p-4">
+              <div class="flex items-center justify-between text-slate-400 text-[11px] font-medium mb-2">
+                <span>Pending Tasks</span>
+                <span class="text-cyan-400">✓</span>
+              </div>
+              <div id="statPendingTasks" class="text-lg sm:text-xl font-bold text-white">0</div>
+              <div class="text-[10px] text-slate-400 mt-1">
+                <span id="statCompletedTasksText">0 completed today</span>
+              </div>
+            </div>
+
+            <!-- Habit Progress Card -->
+            <div class="bento-card p-4">
+              <div class="flex items-center justify-between text-slate-400 text-[11px] font-medium mb-2">
+                <span>Habit Streak</span>
+                <span class="text-amber-400">⚡</span>
+              </div>
+              <div id="statHabitProgress" class="text-lg sm:text-xl font-bold text-white">0 / 0</div>
+              <div class="text-[10px] text-slate-400 mt-1">Habits ticked today</div>
+            </div>
+
+            <!-- Vault Items Card -->
+            <div class="bento-card p-4">
+              <div class="flex items-center justify-between text-slate-400 text-[11px] font-medium mb-2">
+                <span>Protected Vault</span>
+                <span class="text-rose-400">🔒</span>
+              </div>
+              <div id="statVaultCount" class="text-lg sm:text-xl font-bold text-white">0</div>
+              <div class="text-[10px] text-slate-400 mt-1">Saved credentials</div>
+            </div>
+          </div>
+
+          <!-- 12-Column Main Bento Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5">
+
+            <!-- Bento Tile 1: Today's Daily Schedule (4 cols) -->
+            <div class="lg:col-span-4 bento-card p-5 flex flex-col justify-between space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="text-sm font-semibold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+                    Today's Daily Schedule
+                  </h3>
+                  <button type="button" data-tab-link="schedule" class="text-xs text-sky-400 hover:text-sky-300 font-medium">Full schedule &rarr;</button>
+                </div>
+                <div id="overviewScheduleList" class="space-y-2 max-h-60 overflow-y-auto pr-1">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+              <button type="button" id="overviewQuickAddScheduleBtn" class="w-full py-2 px-3 rounded-xl border border-dashed border-slate-700 hover:border-sky-500 hover:bg-sky-500/5 text-slate-400 hover:text-sky-300 text-xs font-medium transition">
+                + Add Time Slot
+              </button>
+            </div>
+
+            <!-- Bento Tile 2: People & Thoughts Preview (4 cols) -->
+            <div class="lg:col-span-4 bento-card p-5 flex flex-col justify-between space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="text-sm font-semibold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-fuchsia-400"></span>
+                    People & What I Think
+                  </h3>
+                  <button type="button" data-tab-link="people" class="text-xs text-fuchsia-400 hover:text-fuchsia-300 font-medium">All people &rarr;</button>
+                </div>
+                <div id="overviewPeopleList" class="space-y-2.5 max-h-60 overflow-y-auto pr-1">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+              <button type="button" data-tab-link="journal" class="w-full py-2 px-3 rounded-xl border border-dashed border-slate-700 hover:border-fuchsia-500 hover:bg-fuchsia-500/5 text-slate-400 hover:text-fuchsia-300 text-xs font-medium transition">
+                Mention @Person in Journal &rarr;
+              </button>
+            </div>
+
+            <!-- Bento Tile 3: Priority Focus List (4 cols) -->
+            <div class="lg:col-span-4 bento-card p-5 flex flex-col justify-between space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="text-sm font-semibold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                    Priority Focus List
+                  </h3>
+                  <button type="button" data-tab-link="time" class="text-xs text-indigo-400 hover:text-indigo-300 font-medium">Manage all &rarr;</button>
+                </div>
+                <div id="overviewTaskList" class="space-y-2 max-h-60 overflow-y-auto pr-1">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+              <button type="button" id="overviewQuickAddTaskBtn" class="w-full py-2 px-3 rounded-xl border border-dashed border-slate-700 hover:border-indigo-500 hover:bg-indigo-500/5 text-slate-400 hover:text-indigo-300 text-xs font-medium transition flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Quick Add Task
+              </button>
+            </div>
+
+            <!-- Bento Tile 4: Recent Journal Entries Grid Preview (7 cols) -->
+            <div class="lg:col-span-7 bento-card p-5 flex flex-col justify-between space-y-4">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <h3 class="text-sm font-semibold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                    Recent Journal Reflections
+                  </h3>
+                  <button type="button" data-tab-link="journal" class="text-xs text-amber-400 hover:text-amber-300 font-medium">Open Journal Studio &rarr;</button>
+                </div>
+                <div id="overviewJournalGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Bento Tile 5: Quick Scratchpad (5 cols) -->
+            <div class="lg:col-span-5 bento-card p-5 flex flex-col justify-between space-y-3">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <h3 class="text-sm font-semibold text-white flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-indigo-400"></span>
+                    Local Scratchpad
+                  </h3>
+                  <span id="scratchpadStatus" class="text-[11px] text-slate-400">Autosaved</span>
+                </div>
+                <textarea id="quickScratchpad" rows="5" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition resize-none leading-relaxed" placeholder="Jot down quick reminders, code snippets, phone numbers, or fleeting thoughts..."></textarea>
+              </div>
+              <div class="flex items-center justify-between text-xs text-slate-400">
+                <span>Stored in local browser memory</span>
+                <button type="button" id="clearScratchpadBtn" class="text-slate-400 hover:text-rose-400 transition">Clear note</button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ================= TAB: DAILY SCHEDULE (NEW) ================= -->
+        <section id="tab-schedule" class="tab-content hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-bold text-white tracking-tight">Daily Schedule & Time-Blocking</h2>
+              <p class="text-slate-400 text-sm mt-1">Plan your day hour-by-hour in a visual grid format and track your daily execution.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <input id="scheduleDateFilter" type="date" class="bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500">
+              <button type="button" id="scheduleTodayBtn" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium transition">Today</button>
+              <button type="button" id="loadSampleScheduleBtn" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 text-xs font-medium transition">Load Ideal Day Template</button>
+              <button type="button" id="openAddScheduleModalBtn" class="px-4 py-2 rounded-xl bg-sky-600 hover:bg-sky-500 text-white font-medium text-xs shadow-lg shadow-sky-600/20 transition">+ Add Time Block</button>
+            </div>
+          </div>
+
+          <!-- Schedule Summary Grid -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="bento-card p-4">
+              <span class="text-xs text-slate-400">Planned Blocks</span>
+              <div id="schedTotalBlocks" class="text-2xl font-bold text-white mt-1">0</div>
+              <span class="text-[11px] text-slate-400">For selected date</span>
+            </div>
+            <div class="bento-card p-4">
+              <span class="text-xs text-slate-400">Completed Blocks</span>
+              <div id="schedDoneBlocks" class="text-2xl font-bold text-emerald-400 mt-1">0</div>
+              <span id="schedCompletionPct" class="text-[11px] text-emerald-400">0% done</span>
+            </div>
+            <div class="bento-card p-4">
+              <span class="text-xs text-slate-400">Scheduled Hours</span>
+              <div id="schedTotalHours" class="text-2xl font-bold text-sky-400 mt-1">0h</div>
+              <span class="text-[11px] text-slate-400">Time allocated</span>
+            </div>
+            <div class="bento-card p-4">
+              <span class="text-xs text-slate-400">Current / Next Slot</span>
+              <div id="schedNextSlotTitle" class="text-sm font-bold text-white mt-1.5 truncate">Free Time</div>
+              <span id="schedNextSlotTime" class="text-[11px] text-indigo-400 font-mono">--:--</span>
+            </div>
+          </div>
+
+          <!-- Daily Schedule Grid Cards -->
+          <div id="scheduleGridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- ================= TAB: JOURNALING STUDIO (WELL DEVELOPED + PEOPLE AUTO-EXTRACTOR) ================= -->
+        <section id="tab-journal" class="tab-content hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-bold text-white tracking-tight">Daily Reflection & Journaling Studio</h2>
+              <p class="text-slate-400 text-sm mt-1">Full-featured local journal with exact date & time stamps, mood/energy tracking, prompts, and automatic <span class="text-fuchsia-400 font-medium">@Person</span> thought extraction.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" data-tab-link="people" class="px-3.5 py-2.5 rounded-xl bg-fuchsia-600/20 border border-fuchsia-500/40 hover:bg-fuchsia-600/30 text-fuchsia-300 font-medium text-xs transition flex items-center gap-1.5">
+                <span>👥 View People & Thoughts</span>
+              </button>
+              <button type="button" id="openAddJournalModalBtn" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-medium text-sm shadow-lg shadow-amber-600/20 transition">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                <span>Write Entry</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Journaling Studio Bento Grid: Composer + Live Person Extractor & Prompts -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <!-- Left 8 Cols: Inline Rich Journal Composer -->
+            <div class="lg:col-span-8 bento-card p-5 sm:p-6 space-y-4">
+              <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-2">
+                  <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                  <h3 id="studioComposerHeading" class="text-sm font-bold text-white">Quick Studio Composer</h3>
+                </div>
+                <div class="flex items-center gap-2">
+                  <button type="button" id="studioNowBtn" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-[11px] text-amber-300 font-mono transition" title="Stamp exact current date and time">
+                    🕒 Stamp Current Date & Time
+                  </button>
+                  <button type="button" id="studioPromptBtn" class="px-2.5 py-1 rounded-lg bg-indigo-500/20 hover:bg-indigo-500/30 text-[11px] text-indigo-300 font-medium transition">
+                    ✨ Inspire Prompt
+                  </button>
+                </div>
+              </div>
+
+              <form id="studioJournalForm" class="space-y-4">
+                <input type="hidden" id="studioEditId">
+
+                <!-- Row 1: Date, Time, Mood, Energy, Weather/Location -->
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
+                  <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Date</label>
+                    <input id="studioDate" type="date" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500" required>
+                  </div>
+                  <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Exact Time</label>
+                    <input id="studioTime" type="time" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-200 font-mono focus:outline-none focus:border-amber-500" required>
+                  </div>
+                  <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Mood</label>
+                    <select id="studioMood" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
+                      <option value="great">🤩 Thrilled</option>
+                      <option value="good" selected>😊 Good</option>
+                      <option value="calm">😌 Calm</option>
+                      <option value="neutral">😐 Neutral</option>
+                      <option value="down">😔 Down</option>
+                      <option value="stressed">😤 Stressed</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Energy</label>
+                    <select id="studioEnergy" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
+                      <option value="High ⚡">High ⚡</option>
+                      <option value="Balanced 🔋" selected>Balanced 🔋</option>
+                      <option value="Low 🪫">Low 🪫</option>
+                    </select>
+                  </div>
+                  <div class="col-span-2 sm:col-span-1">
+                    <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Setting</label>
+                    <select id="studioWeather" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
+                      <option value="🏠 Home">🏠 Home</option>
+                      <option value="☀️ Clear Day">☀️ Clear Day</option>
+                      <option value="🌧️ Rainy">🌧️ Rainy</option>
+                      <option value="☕ Cafe">☕ Cafe</option>
+                      <option value="💼 Work/Study">💼 Work/Study</option>
+                      <option value="🌿 Outdoors">🌿 Outdoors</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Row 2: Entry Title & Tags -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Entry Title</label>
+                    <input id="studioTitle" type="text" placeholder="Headline of your entry..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500" required>
+                  </div>
+                  <div>
+                    <label class="block text-[10px] uppercase tracking-wider text-slate-400 mb-1">Tags (comma-separated)</label>
+                    <input id="studioTags" type="text" placeholder="reflection, gratitude, ideas" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-amber-500">
+                  </div>
+                </div>
+
+                <!-- Row 3: Quick Person Tagging & @Mention Helper -->
+                <div class="bg-slate-950/90 border border-slate-800/90 rounded-xl p-3 space-y-2">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span class="text-[11px] font-medium text-fuchsia-300 flex items-center gap-1.5">
+                      <span>👤 Talk About Someone:</span>
+                      <span class="text-slate-400 font-normal">Use <code class="text-fuchsia-300 bg-fuchsia-950/60 px-1 rounded">@Name</code> in your text (e.g. <code class="text-slate-300">@Rohan</code>) or list names below</span>
+                    </span>
+                    <div id="quickInsertPeoplePills" class="flex flex-wrap items-center gap-1">
+                      <!-- Existing people quick buttons injected via JS -->
+                    </div>
+                  </div>
+                  <input id="studioPeopleInput" type="text" placeholder="Optional: People talked about in this entry (e.g. Rohan, Meera) — auto-saves what you wrote about them!" class="w-full bg-slate-900 border border-slate-800 rounded-lg px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-fuchsia-500">
+                </div>
+
+                <!-- Row 4: Main Content Textarea -->
+                <div>
+                  <textarea id="studioBody" rows="6" placeholder="Write freely... Mention anyone with @Name (for example: 'Met @Rohan for tea today. I think he has a great perspective on staying calm under pressure.') and those thoughts will automatically appear in their People Dossier!" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs sm:text-sm text-slate-200 focus:outline-none focus:border-amber-500 resize-y leading-relaxed" required></textarea>
+                </div>
+
+                <!-- Row 5: Word Count & Submit -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                  <div class="flex items-center gap-3 text-[11px] text-slate-400 font-mono">
+                    <span id="studioWordCount">0 words • 0 chars</span>
+                    <label class="flex items-center gap-1.5 cursor-pointer font-sans text-amber-300">
+                      <input id="studioStarred" type="checkbox" class="rounded border-slate-700 bg-slate-950 text-amber-500">
+                      <span>⭐ Star / Bookmark Entry</span>
+                    </label>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button type="button" id="studioClearBtn" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium transition">Reset</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold shadow-lg shadow-amber-600/20 transition">Save Journal Entry</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Right 4 Cols: Live Person Thought Detection & Journal Stats -->
+            <div class="lg:col-span-4 space-y-5 flex flex-col justify-between">
+              <!-- Live Person Thought Extractor Preview -->
+              <div class="bento-card p-5 space-y-3 flex-1">
+                <div class="flex items-center justify-between">
+                  <h3 class="text-sm font-bold text-fuchsia-300 flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-fuchsia-400 animate-ping"></span>
+                    Live Person Thought Detector
+                  </h3>
+                  <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-fuchsia-500/15 text-fuchsia-300">Auto-Sync</span>
+                </div>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                  Whenever you talk about someone in your journal using <code class="text-fuchsia-300">@Name</code> or the People box, the sentences about them are extracted into their personal card:
+                </p>
+                <div id="livePersonExtractPreview" class="space-y-2 pt-1 max-h-56 overflow-y-auto">
+                  <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs text-slate-500 text-center">
+                    Start typing <span class="text-fuchsia-400 font-mono">@Name</span> in your journal entry to see live thought extraction.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Journaling Stats & Templates Card -->
+              <div class="bento-card p-5 space-y-3">
+                <h3 class="text-xs font-semibold uppercase tracking-wider text-slate-400">Journal Quick Templates</h3>
+                <div class="grid grid-cols-2 gap-2">
+                  <button type="button" data-j-template="gratitude" class="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800 text-left text-xs text-slate-300 transition">
+                    🙏 <strong>Gratitude</strong><br><span class="text-[10px] text-slate-500">3 wins & thanks</span>
+                  </button>
+                  <button type="button" data-j-template="person" class="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800 text-left text-xs text-slate-300 transition">
+                    👤 <strong>Person Note</strong><br><span class="text-[10px] text-slate-500">Thoughts on someone</span>
+                  </button>
+                  <button type="button" data-j-template="evening" class="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800 text-left text-xs text-slate-300 transition">
+                    🌙 <strong>Evening Review</strong><br><span class="text-[10px] text-slate-500">Lessons & unwind</span>
+                  </button>
+                  <button type="button" data-j-template="clarity" class="p-2.5 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800 text-left text-xs text-slate-300 transition">
+                    🧠 <strong>Mind Dump</strong><br><span class="text-[10px] text-slate-500">Clear mental clutter</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Journal Filter & Search Bar -->
+          <div class="flex flex-wrap items-center justify-between gap-3 bento-card p-4">
+            <div class="flex items-center gap-2 flex-1 min-w-[220px]">
+              <input id="journalSearchInput" type="text" placeholder="Search entries, @people, thoughts or #tags..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-amber-500 transition">
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <select id="journalPersonFilter" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-amber-500">
+                <option value="all">All People Mentioned</option>
+              </select>
+              <select id="journalMoodFilter" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-amber-500">
+                <option value="all">All Moods</option>
+                <option value="great">🤩 Great</option>
+                <option value="good">😊 Good</option>
+                <option value="calm">😌 Calm</option>
+                <option value="neutral">😐 Neutral</option>
+                <option value="down">😔 Down</option>
+                <option value="stressed">😤 Stressed</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Journal Entries Grid (2-Column / 3-Column Bento Grid) -->
+          <div id="journalEntriesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- ================= TAB: PEOPLE & THOUGHTS DOSSIER (NEW) ================= -->
+        <section id="tab-people" class="tab-content hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-bold text-white tracking-tight">People & What I Think About Them</h2>
+              <p class="text-slate-400 text-sm mt-1">
+                Automatically populated whenever you mention someone in your journal, plus your personal reflections and relationship notes on each person.
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" id="openAddPersonModalBtn" class="px-4 py-2.5 rounded-xl bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-medium text-xs shadow-lg shadow-fuchsia-600/20 transition flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                <span>Add Person / Thought</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Search & Relationship Filter -->
+          <div class="flex flex-wrap items-center justify-between gap-3 bento-card p-4">
+            <input id="peopleSearchInput" type="text" placeholder="Search by person's name, relationship, or what you think about them..." class="flex-1 min-w-[240px] bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-fuchsia-500">
+            <select id="peopleRelationFilter" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-300 focus:outline-none focus:border-fuchsia-500">
+              <option value="all">All Relationships</option>
+              <option value="Friend">Friend</option>
+              <option value="Family">Family</option>
+              <option value="Colleague">Colleague / Work</option>
+              <option value="Mentor">Mentor</option>
+              <option value="Acquaintance">Acquaintance</option>
+            </select>
+          </div>
+
+          <!-- People Dossier Grid -->
+          <div id="peopleGridContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Injected via JS -->
+          </div>
+        </section>
+
+        <!-- ================= TAB: MONEY MANAGEMENT ================= -->
+        <section id="tab-money" class="tab-content hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-bold text-white tracking-tight">Money & Expenses</h2>
+              <p class="text-slate-400 text-sm mt-1">Track personal cash flow, categorize expenditures, and stay within your savings goals.</p>
+            </div>
+            <button type="button" id="openAddTxModalBtn" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-sm shadow-lg shadow-emerald-600/20 transition">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+              <span>Log Transaction</span>
+            </button>
+          </div>
+
+          <!-- Financial Summary Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bento-card p-5">
+              <span class="text-xs font-medium text-slate-400">Total Inflow</span>
+              <div id="moneyTotalIncome" class="text-2xl font-bold text-emerald-400 mt-1">₹0</div>
+              <span class="text-[11px] text-slate-400">All recorded income</span>
+            </div>
+            <div class="bento-card p-5">
+              <span class="text-xs font-medium text-slate-400">Total Outflow</span>
+              <div id="moneyTotalExpense" class="text-2xl font-bold text-rose-400 mt-1">₹0</div>
+              <span class="text-[11px] text-slate-400">All recorded expenses</span>
+            </div>
+            <div class="bento-card p-5">
+              <span class="text-xs font-medium text-slate-400">Net Remaining</span>
+              <div id="moneyNetSavings" class="text-2xl font-bold text-white mt-1">₹0</div>
+              <span id="moneySavingsRate" class="text-[11px] text-indigo-400">0% savings rate</span>
+            </div>
+          </div>
+
+          <!-- Money Bento Grid: Category Breakdown + Transaction Ledger -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <div class="lg:col-span-5 bento-card p-6">
+              <h3 class="text-sm font-semibold text-slate-200 mb-4 flex items-center justify-between">
+                <span>Expenses by Category</span>
+                <span class="text-xs text-slate-400 font-normal">Ranked by volume</span>
+              </h3>
+              <div id="categoryBarsContainer" class="space-y-3">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+
+            <div class="lg:col-span-7 bento-card overflow-hidden">
+              <div class="p-5 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                <h3 class="text-sm font-semibold text-white">Transactions History</h3>
+                <div class="flex items-center gap-2">
+                  <input id="txSearchInput" type="text" placeholder="Search notes or categories..." class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition w-44 sm:w-56">
+                  <select id="txTypeFilter" class="bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-300 focus:outline-none focus:border-indigo-500">
+                    <option value="all">All Types</option>
+                    <option value="expense">Expenses Only</option>
+                    <option value="income">Income Only</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs">
+                  <thead class="bg-slate-900/90 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-800">
+                    <tr>
+                      <th class="px-4 py-3 font-semibold">Date</th>
+                      <th class="px-4 py-3 font-semibold">Description</th>
+                      <th class="px-4 py-3 font-semibold">Category</th>
+                      <th class="px-4 py-3 font-semibold text-right">Amount</th>
+                      <th class="px-4 py-3 font-semibold text-right">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody id="txTableBody" class="divide-y divide-slate-800/60 text-slate-300">
+                    <!-- Injected via JS -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= TAB: TIME & PRODUCTIVITY ================= -->
+        <section id="tab-time" class="tab-content hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-bold text-white tracking-tight">Time, Tasks & Focus Timer</h2>
+              <p class="text-slate-400 text-sm mt-1">Organize priorities, cultivate daily habits, and work in deep focus intervals.</p>
+            </div>
+          </div>
+
+          <!-- 3-Column Bento Grid: Pomodoro + Tasks + Habits -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <!-- Left 4 Cols: Pomodoro Timer -->
+            <div class="lg:col-span-4 bento-card p-6 flex flex-col items-center justify-center text-center">
+              <div class="flex items-center gap-1.5 p-1 bg-slate-950/80 rounded-xl border border-slate-800 mb-5">
+                <button type="button" data-pomo-mode="work" class="pomo-mode-btn px-3 py-1.5 rounded-lg text-xs font-medium text-white bg-indigo-600 transition">Focus (25m)</button>
+                <button type="button" data-pomo-mode="short" class="pomo-mode-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Short Break (5m)</button>
+                <button type="button" data-pomo-mode="long" class="pomo-mode-btn px-3 py-1.5 rounded-lg text-xs font-medium text-slate-400 hover:text-white transition">Long Break (15m)</button>
+              </div>
+
+              <div id="pomoTimerDisplay" class="text-5xl sm:text-6xl font-extrabold font-mono text-white tracking-tight mb-5">
+                25:00
+              </div>
+
+              <div class="flex items-center gap-3">
+                <button type="button" id="pomoToggleBtn" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs shadow-lg shadow-indigo-600/30 transition flex items-center gap-2">
+                  <svg id="pomoPlayIcon" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"></path></svg>
+                  <span id="pomoToggleText">Start Session</span>
+                </button>
+                <button type="button" id="pomoResetBtn" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition" title="Reset Timer">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </button>
+              </div>
+              <div class="mt-4 text-xs text-slate-400">
+                Completed focus cycles today: <span id="pomoCyclesCompleted" class="text-indigo-400 font-semibold">0</span>
+              </div>
+            </div>
+
+            <!-- Middle 4 Cols: Task Manager -->
+            <div class="lg:col-span-4 bento-card p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 class="text-sm font-semibold text-white">Task Management</h3>
+                    <p class="text-[11px] text-slate-400">By due date & priority</p>
+                  </div>
+                  <button type="button" id="openAddTaskModalBtn" class="px-3 py-1.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white text-xs font-medium transition flex items-center gap-1">
+                    <span>New Task</span>
+                  </button>
+                </div>
+
+                <div class="flex items-center gap-1 mb-3 bg-slate-950 p-1 rounded-xl border border-slate-800/80 text-[11px]">
+                  <button type="button" data-task-filter="all" class="task-filter-btn px-2.5 py-1 rounded-lg text-white bg-slate-800 font-medium">All</button>
+                  <button type="button" data-task-filter="pending" class="task-filter-btn px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">Active</button>
+                  <button type="button" data-task-filter="completed" class="task-filter-btn px-2.5 py-1 rounded-lg text-slate-400 hover:text-white">Completed</button>
+                </div>
+
+                <div id="tasksListContainer" class="space-y-2 max-h-80 overflow-y-auto pr-1">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Right 4 Cols: Habit Streaks -->
+            <div class="lg:col-span-4 bento-card p-5 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 class="text-sm font-semibold text-white">Habit Tracker</h3>
+                    <p class="text-[11px] text-slate-400">5-day consistency matrix</p>
+                  </div>
+                  <button type="button" id="openAddHabitModalBtn" class="px-3 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-500 text-white text-xs font-medium transition flex items-center gap-1">
+                    <span>Add Habit</span>
+                  </button>
+                </div>
+
+                <div id="habitsListContainer" class="space-y-2.5 max-h-80 overflow-y-auto pr-1">
+                  <!-- Injected via JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= TAB: PASSWORD VAULT ================= -->
+        <section id="tab-passwords" class="tab-content hidden space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div>
+              <h2 class="text-2xl font-bold text-white tracking-tight">Protected Password Vault</h2>
+              <p class="text-slate-400 text-sm mt-1">Store logins and credentials securely on your machine with master lock protection.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button type="button" id="lockVaultBtn" class="hidden px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-medium transition flex items-center gap-1.5">
+                <span>Lock Vault</span>
+              </button>
+              <button type="button" id="openAddPasswordModalBtn" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-medium text-sm shadow-lg shadow-rose-600/20 transition flex items-center gap-2">
+                <span>Add Account</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Vault Locked View -->
+          <div id="vaultLockedView" class="bento-card p-8 sm:p-12 text-center max-w-lg mx-auto space-y-5">
+            <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-400 flex items-center justify-center mx-auto shadow-inner">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <div>
+              <h3 id="vaultLockTitle" class="text-lg font-bold text-white">Vault is Locked</h3>
+              <p id="vaultLockSubtitle" class="text-xs text-slate-400 mt-1">Enter your master password to decrypt and view credentials.</p>
+            </div>
+            <form id="vaultUnlockForm" class="space-y-3 pt-2">
+              <input id="masterPasswordInput" type="password" placeholder="Master Password" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-rose-500 transition text-center" required>
+              <button type="submit" class="w-full py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-medium text-sm shadow-lg shadow-rose-600/30 transition">
+                Unlock Vault
+              </button>
+            </form>
+            <p id="vaultMasterHint" class="text-[11px] text-slate-400">
+              First time? Setting any password now will become your Master Key.
+            </p>
+          </div>
+
+          <!-- Vault Unlocked View -->
+          <div id="vaultUnlockedView" class="hidden space-y-6">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3 bento-card p-4">
+              <input id="vaultSearchInput" type="text" placeholder="Search accounts, usernames, URLs..." class="w-full sm:w-80 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-rose-500 transition">
+              <span class="text-xs text-slate-400">Grid view active • Click Show or Copy on any card</span>
+            </div>
+
+            <!-- Passwords Grid -->
+            <div id="vaultCardsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <!-- Injected via JS -->
+            </div>
+
+            <!-- Built-in Password Generator Widget -->
+            <div class="bento-card p-6">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-sm font-semibold text-white">Generate Strong Password</h3>
+                <span id="genStrengthText" class="text-[11px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-medium">Strong (16 chars)</span>
+              </div>
+
+              <div class="flex items-center gap-2 mb-4">
+                <input id="generatedPasswordOutput" type="text" readonly class="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-4 py-2 text-xs sm:text-sm font-mono text-emerald-400 tracking-wider focus:outline-none">
+                <button type="button" id="copyGenPassBtn" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-medium transition">
+                  Copy
+                </button>
+                <button type="button" id="regeneratePassBtn" class="p-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white transition" title="Regenerate">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                </button>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs text-slate-300">
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input id="genOptUpper" type="checkbox" checked class="rounded border-slate-700 bg-slate-950 text-indigo-600">
+                  <span>Uppercase (A-Z)</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input id="genOptLower" type="checkbox" checked class="rounded border-slate-700 bg-slate-950 text-indigo-600">
+                  <span>Lowercase (a-z)</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input id="genOptNum" type="checkbox" checked class="rounded border-slate-700 bg-slate-950 text-indigo-600">
+                  <span>Numbers (0-9)</span>
+                </label>
+                <label class="flex items-center gap-2 cursor-pointer">
+                  <input id="genOptSym" type="checkbox" checked class="rounded border-slate-700 bg-slate-950 text-indigo-600">
+                  <span>Symbols (!@#$)</span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= TAB: SETTINGS, BACKUP & ANDROID APK ================= -->
+        <section id="tab-settings" class="tab-content hidden space-y-6">
+          <div>
+            <h2 class="text-2xl font-bold text-white tracking-tight">Android APK, Local Backup & Settings</h2>
+            <p class="text-slate-400 text-sm mt-1">Install on Android, export/restore your local database, or customize preferences.</p>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Android App / APK Installation Card -->
+            <div class="bento-card p-6 space-y-4 border-violet-500/40">
+              <div class="flex items-center justify-between">
+                <h3 class="text-base font-bold text-white flex items-center gap-2">
+                  <span>📱 Install on Android (APK & Offline App)</span>
+                </h3>
+                <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-violet-500/20 text-violet-300">Android Ready</span>
+              </div>
+              <p class="text-xs text-slate-300 leading-relaxed">
+                You can run Personal LifeOS as a standalone native-style Android app with 100% local offline storage in two ways:
+              </p>
+              <div class="space-y-2.5 text-xs text-slate-300 bg-slate-950 p-4 rounded-xl border border-slate-800">
+                <div>
+                  <strong class="text-indigo-400">1. Instant Android Install (No PC Required):</strong>
+                  <p class="text-slate-400 text-[11px] mt-0.5">Transfer this HTML file to your Android phone, open it in Chrome or Brave, tap the <strong>⋮ Menu &rarr; Add to Home screen / Install App</strong>. It launches full-screen from your app drawer completely offline.</p>
+                </div>
+                <div class="pt-2 border-t border-slate-800/80">
+                  <strong class="text-emerald-400">2. Native Android APK Package:</strong>
+                  <p class="text-slate-400 text-[11px] mt-0.5">Download the included <strong>Android Studio / Gradle APK project zip</strong> from the chat attachment to compile a signed <code class="text-slate-200">LifeOS-debug.apk</code> locally via <code class="text-slate-200">./gradlew assembleDebug</code> or automatically via the included GitHub Actions workflow.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Preferences Card -->
+            <div class="bento-card p-6 space-y-5">
+              <h3 class="text-base font-semibold text-white">General Preferences</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="currencySelect" class="block text-xs font-medium text-slate-300 mb-1.5">Currency Symbol</label>
+                  <select id="currencySelect" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                    <option value="₹">₹ (Indian Rupee - INR)</option>
+                    <option value="$">$ (US Dollar - USD)</option>
+                    <option value="€">€ (Euro - EUR)</option>
+                    <option value="£">£ (British Pound - GBP)</option>
+                    <option value="¥">¥ (Japanese Yen - JPY)</option>
+                    <option value="AED">AED (Emirati Dirham)</option>
+                    <option value="CAD">CAD $ (Canadian Dollar)</option>
+                    <option value="AUD">AUD $ (Australian Dollar)</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="userDisplayNameInput" class="block text-xs font-medium text-slate-300 mb-1.5">Your Name or Alias</label>
+                  <input id="userDisplayNameInput" type="text" placeholder="e.g. Alex" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-indigo-500">
+                </div>
+              </div>
+            </div>
+
+            <!-- Backup & Restore Card -->
+            <div class="bento-card p-6 space-y-4">
+              <h3 class="text-base font-semibold text-white">Local Backup & Migration</h3>
+              <p class="text-xs text-slate-400 leading-relaxed">
+                Export all money logs, journal entries, people dossiers, daily schedules, tasks, and encrypted vault credentials into a single portable JSON file.
+              </p>
+              <div class="flex flex-wrap items-center gap-3 pt-1">
+                <button type="button" id="exportDataBtn" class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium text-xs shadow-lg shadow-indigo-600/20 transition">
+                  Export JSON Backup
+                </button>
+                <label class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium text-xs transition cursor-pointer">
+                  <span>Import JSON Backup</span>
+                  <input id="importDataInput" type="file" accept=".json" class="hidden">
+                </label>
+              </div>
+            </div>
+
+            <!-- Danger Zone Card -->
+            <div class="bg-rose-950/20 border border-rose-900/40 rounded-2xl p-6 space-y-4">
+              <h3 class="text-base font-semibold text-rose-300">Danger Zone</h3>
+              <p class="text-xs text-slate-400">
+                Reset all application records, transactions, journal notes, people thoughts, schedules, tasks, and passwords back to defaults.
+              </p>
+              <button type="button" id="resetAllDataBtn" class="px-4 py-2 rounded-xl bg-rose-600/20 hover:bg-rose-600 text-rose-300 hover:text-white border border-rose-600/40 text-xs font-medium transition">
+                Reset All Local Data
+              </button>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ================= MODALS ================= -->
+
+  <!-- Modal: Add / Edit Schedule Block -->
+  <div id="scheduleModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 id="scheduleModalTitle" class="text-base font-bold text-white">Add Daily Schedule Block</h3>
+        <button type="button" class="close-modal text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+      <form id="scheduleForm" class="space-y-3.5">
+        <input type="hidden" id="schedEditId">
+        <div>
+          <label class="block text-xs text-slate-300 mb-1">Activity / Block Title</label>
+          <input id="schedTitle" type="text" placeholder="e.g. Deep Work Session, Morning Gym, Team Sync" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-sky-500" required>
+        </div>
+        <div class="grid grid-cols-3 gap-2.5">
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Date</label>
+            <input id="schedDate" type="date" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-200" required>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Start Time</label>
+            <input id="schedStart" type="time" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-200 font-mono" required>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">End Time</label>
+            <input id="schedEnd" type="time" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-200 font-mono" required>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-300 mb-1">Category</label>
+          <select id="schedCategory" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200">
+            <option value="Deep Work">💻 Deep Work</option>
+            <option value="Routine">🌅 Morning / Evening Routine</option>
+            <option value="Health">🏋️ Health & Workout</option>
+            <option value="Study">📚 Study & Reading</option>
+            <option value="Meeting">🤝 Meeting / Call</option>
+            <option value="Personal">🏠 Personal / Errands</option>
+            <option value="Rest">☕ Rest & Recharge</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-300 mb-1">Notes / Goal for this block</label>
+          <input id="schedNotes" type="text" placeholder="Optional details or location..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200">
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" class="close-modal px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-800">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-medium text-white bg-sky-600 hover:bg-sky-500">Save Schedule Block</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add / Edit Person & Thought -->
+  <div id="personModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 id="personModalTitle" class="text-base font-bold text-white">Person Dossier & My Thoughts</h3>
+        <button type="button" class="close-modal text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+      <form id="personForm" class="space-y-3.5">
+        <input type="hidden" id="personEditId">
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Person's Name</label>
+            <input id="personNameInput" type="text" placeholder="e.g. Rohan, Meera" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 focus:outline-none focus:border-fuchsia-500" required>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-300 mb-1">Relationship</label>
+            <select id="personRelationInput" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200">
+              <option value="Friend">Friend</option>
+              <option value="Family">Family</option>
+              <option value="Colleague">Colleague / Work</option>
+              <option value="Mentor">Mentor</option>
+              <option value="Acquaintance">Acquaintance</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-300 mb-1">Overall Vibe / Impression</label>
+          <select id="personVibeInput" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200">
+            <option value="🤝 Trusted & Reliable">🤝 Trusted & Reliable</option>
+            <option value="🌟 Inspiring & Positive">🌟 Inspiring & Positive</option>
+            <option value="❤️ Warm & Supportive">❤️ Warm & Supportive</option>
+            <option value="🧠 Sharp & Insightful">🧠 Sharp & Insightful</option>
+            <option value="🤔 Complex / Nuanced">🤔 Complex / Nuanced</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-300 mb-1">What I Think About Them (Core Summary)</label>
+          <textarea id="personSummaryInput" rows="3" placeholder="Your overall impression, their strengths, how they make you feel, or things to remember about them..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-fuchsia-500 resize-none" required></textarea>
+        </div>
+        <div>
+          <label class="block text-xs text-slate-300 mb-1">Add a New Dated Thought (Optional)</label>
+          <textarea id="personNewThoughtInput" rows="2" placeholder="Add a specific observation or moment from today..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-xs text-slate-200 focus:outline-none focus:border-fuchsia-500 resize-none"></textarea>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" class="close-modal px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-800">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-medium text-white bg-fuchsia-600 hover:bg-fuchsia-500">Save Person Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Transaction -->
+  <div id="addTxModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white">Log Transaction</h3>
+        <button type="button" class="close-modal text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+      <form id="addTxForm" class="space-y-3.5">
+        <div class="grid grid-cols-2 gap-2 p-1 bg-slate-950 rounded-xl border border-slate-800">
+          <label class="flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-xs font-medium cursor-pointer text-slate-300 hover:text-white has-[:checked]:bg-rose-600 has-[:checked]:text-white transition">
+            <input type="radio" name="txType" value="expense" checked class="hidden">
+            <span>Expense</span>
+          </label>
+          <label class="flex items-center justify-center gap-1.5 py-1.5 rounded-lg text-xs font-medium cursor-pointer text-slate-300 hover:text-white has-[:checked]:bg-emerald-600 has-[:checked]:text-white transition">
+            <input type="radio" name="txType" value="income" class="hidden">
+            <span>Income</span>
+          </label>
+        </div>
+        <div>
+          <label for="txAmount" class="block text-xs text-slate-300 mb-1">Amount</label>
+          <input id="txAmount" type="number" step="0.01" min="0.01" placeholder="0.00" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-sm text-slate-100" required>
+        </div>
+        <div>
+          <label for="txCategory" class="block text-xs text-slate-300 mb-1">Category</label>
+          <select id="txCategory" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200">
+            <option value="Food & Dining">Food & Dining</option>
+            <option value="Rent & Housing">Rent & Housing</option>
+            <option value="Utilities">Utilities & Bills</option>
+            <option value="Transport">Transport & Fuel</option>
+            <option value="Shopping">Shopping & Gear</option>
+            <option value="Health & Fitness">Health & Fitness</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Salary">Salary / Paycheck</option>
+            <option value="Freelance">Freelance / Client</option>
+            <option value="Investments">Investments</option>
+            <option value="Other">Other / Misc</option>
+          </select>
+        </div>
+        <div>
+          <label for="txDate" class="block text-xs text-slate-300 mb-1">Date</label>
+          <input id="txDate" type="date" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200" required>
+        </div>
+        <div>
+          <label for="txNote" class="block text-xs text-slate-300 mb-1">Description / Note</label>
+          <input id="txNote" type="text" placeholder="e.g. Grocery trip, Monthly retainer..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200" required>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" class="close-modal px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-800">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-medium text-white bg-emerald-600 hover:bg-emerald-500">Save Transaction</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add / Edit Journal Entry -->
+  <div id="journalModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-lg p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 id="journalModalTitle" class="text-base font-bold text-white">Write Daily Journal Entry</h3>
+        <button type="button" class="close-modal text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+      <form id="journalForm" class="space-y-3.5">
+        <input type="hidden" id="journalEditId">
+        <div class="grid grid-cols-3 gap-2.5">
+          <div>
+            <label for="journalDate" class="block text-xs text-slate-300 mb-1">Entry Date</label>
+            <input id="journalDate" type="date" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-200" required>
+          </div>
+          <div>
+            <label for="journalTime" class="block text-xs text-slate-300 mb-1">Exact Time</label>
+            <input id="journalTime" type="time" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-200 font-mono" required>
+          </div>
+          <div>
+            <label for="journalMood" class="block text-xs text-slate-300 mb-1">Mood</label>
+            <select id="journalMood" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-2.5 py-2 text-xs text-slate-200">
+              <option value="great">🤩 Great</option>
+              <option value="good" selected>😊 Good</option>
+              <option value="calm">😌 Calm</option>
+              <option value="neutral">😐 Neutral</option>
+              <option value="down">😔 Down</option>
+              <option value="stressed">😤 Stressed</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label for="journalTitle" class="block text-xs text-slate-300 mb-1">Headline / Title</label>
+          <input id="journalTitle" type="text" placeholder="A meaningful thought or event..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200" required>
+        </div>
+        <div class="grid grid-cols-2 gap-2.5">
+          <div>
+            <label for="journalPeopleModalInput" class="block text-xs text-fuchsia-300 mb-1">People Mentioned</label>
+            <input id="journalPeopleModalInput" type="text" placeholder="e.g. Rohan, Meera" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200">
+          </div>
+          <div>
+            <label for="journalTags" class="block text-xs text-slate-300 mb-1">Tags (comma-separated)</label>
+            <input id="journalTags" type="text" placeholder="work, ideas, reflection" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200">
+          </div>
+        </div>
+        <div>
+          <label for="journalBody" class="block text-xs text-slate-300 mb-1">Entry Content (Tip: Use @Name to log thoughts about someone)</label>
+          <textarea id="journalBody" rows="5" placeholder="What happened today? Mention @Name to automatically record what you think about them..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3.5 text-xs text-slate-200 resize-none leading-relaxed" required></textarea>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" class="close-modal px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-800">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-medium text-white bg-amber-600 hover:bg-amber-500">Save Entry</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Task -->
+  <div id="addTaskModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white">Add Focus Task</h3>
+        <button type="button" class="close-modal text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+      <form id="addTaskForm" class="space-y-3.5">
+        <div>
+          <label for="taskTitle" class="block text-xs text-slate-300 mb-1">Task Description</label>
+          <input id="taskTitle" type="text" placeholder="What needs to get done?" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200" required>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="taskDueDate" class="block text-xs text-slate-300 mb-1">Due Date</label>
+            <input id="taskDueDate" type="date" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200" required>
+          </div>
+          <div>
+            <label for="taskPriority" class="block text-xs text-slate-300 mb-1">Priority</label>
+            <select id="taskPriority" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200">
+              <option value="high">High Priority</option>
+              <option value="medium" selected>Medium Priority</option>
+              <option value="low">Low Priority</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label for="taskCategory" class="block text-xs text-slate-300 mb-1">Category / Project</label>
+          <input id="taskCategory" type="text" placeholder="e.g. Work, Finance, Health" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200">
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" class="close-modal px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-800">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-medium text-white bg-cyan-600 hover:bg-cyan-500">Create Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add Habit -->
+  <div id="addHabitModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 class="text-base font-bold text-white">Track Daily Habit</h3>
+        <button type="button" class="close-modal text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+      <form id="addHabitForm" class="space-y-3.5">
+        <div>
+          <label for="habitNameInput" class="block text-xs text-slate-300 mb-1">Habit Name</label>
+          <input id="habitNameInput" type="text" placeholder="e.g. 15min Stretching, Reading" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200" required>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" class="close-modal px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-800">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-medium text-white bg-amber-600 hover:bg-amber-500">Add Habit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Add / Edit Password -->
+  <div id="passwordModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between pb-2 border-b border-slate-800">
+        <h3 id="passwordModalTitle" class="text-base font-bold text-white">Save Account Credentials</h3>
+        <button type="button" class="close-modal text-slate-400 hover:text-white p-1">✕</button>
+      </div>
+      <form id="passwordForm" class="space-y-3.5">
+        <input type="hidden" id="passwordEditId">
+        <div>
+          <label for="pwTitle" class="block text-xs text-slate-300 mb-1">Title / Service Name</label>
+          <input id="pwTitle" type="text" placeholder="e.g. GitHub, Primary Bank" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200" required>
+        </div>
+        <div>
+          <label for="pwUsername" class="block text-xs text-slate-300 mb-1">Username / Email</label>
+          <input id="pwUsername" type="text" placeholder="username@example.com" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200" required>
+        </div>
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <label for="pwPassword" class="text-xs text-slate-300">Password / Secret Key</label>
+            <button type="button" id="fillGenPasswordBtn" class="text-[11px] text-indigo-400 hover:text-indigo-300 font-medium">Use generated pass</button>
+          </div>
+          <div class="relative">
+            <input id="pwPassword" type="password" placeholder="••••••••••••" class="w-full bg-slate-950 border border-slate-800 rounded-xl pl-3.5 pr-10 py-2 text-xs text-slate-200 font-mono" required>
+            <button type="button" id="toggleModalPwVisibility" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white">👁️</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label for="pwCategory" class="block text-xs text-slate-300 mb-1">Category</label>
+            <select id="pwCategory" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200">
+              <option value="Personal">Personal</option>
+              <option value="Work">Work</option>
+              <option value="Finance">Finance & Banking</option>
+              <option value="Social">Social Media</option>
+              <option value="Developer">Developer / API</option>
+            </select>
+          </div>
+          <div>
+            <label for="pwUrl" class="block text-xs text-slate-300 mb-1">Website URL</label>
+            <input id="pwUrl" type="text" placeholder="https://..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-xs text-slate-200">
+          </div>
+        </div>
+        <div>
+          <label for="pwNotes" class="block text-xs text-slate-300 mb-1">Security Notes / 2FA Hints</label>
+          <textarea id="pwNotes" rows="2" placeholder="Recovery keys or hints" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-2.5 text-xs text-slate-200 resize-none"></textarea>
+        </div>
+        <div class="flex items-center justify-end gap-2 pt-2">
+          <button type="button" class="close-modal px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white bg-slate-800">Cancel</button>
+          <button type="submit" class="px-5 py-2 rounded-xl text-xs font-medium text-white bg-rose-600 hover:bg-rose-500">Save Credential</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: General Confirmation Modal -->
+  <div id="confirmModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-sm p-6 shadow-2xl space-y-4">
+      <h3 id="confirmModalTitle" class="text-base font-bold text-white">Confirm Action</h3>
+      <p id="confirmModalMsg" class="text-xs text-slate-400 leading-relaxed">Are you sure you want to proceed?</p>
+      <div class="flex items-center justify-end gap-2 pt-2">
+        <button type="button" id="confirmModalCancelBtn" class="px-4 py-2 rounded-xl text-xs font-medium text-slate-300 hover:text-white bg-slate-800">Cancel</button>
+        <button type="button" id="confirmModalProceedBtn" class="px-5 py-2 rounded-xl text-xs font-medium text-white bg-rose-600 hover:bg-rose-500">Proceed</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- ================= APPLICATION LOGIC ================= -->
+  <script>
+    const STORAGE_KEY = 'life_os_app_data_v1';
+
+    const INITIAL_STATE = {
+      user: {
+        name: 'You',
+        currency: '₹',
+      },
+      transactions: [
+        { id: 'tx-1', type: 'income', amount: 55000, category: 'Salary', date: '2026-10-01', note: 'Monthly retainer payout' },
+        { id: 'tx-2', type: 'expense', amount: 3200, category: 'Food & Dining', date: '2026-10-12', note: 'Weekly grocery basket' },
+        { id: 'tx-3', type: 'expense', amount: 2400, category: 'Utilities', date: '2026-10-06', note: 'High-speed broadband & power' },
+        { id: 'tx-4', type: 'expense', amount: 1100, category: 'Transport', date: '2026-10-15', note: 'Fuel refill' },
+        { id: 'tx-5', type: 'expense', amount: 1800, category: 'Entertainment', date: '2026-10-16', note: 'Books and media subscriptions' }
+      ],
+      journal: [
+        {
+          id: 'jn-1',
+          date: '2026-10-17',
+          time: '09:30',
+          mood: 'great',
+          energy: 'High ⚡',
+          weather: '☀️ Clear Day',
+          starred: true,
+          title: 'Morning Walk & Architecture Brainstorm with @Rohan',
+          people: ['Rohan'],
+          tags: ['focus', 'morning', 'reflection'],
+          content: 'Started the morning with a crisp walk. Caught up with @Rohan over chai to discuss the new local app layout. @Rohan always brings calm, practical clarity when designs get complicated, and I really respect his honest feedback.'
+        },
+        {
+          id: 'jn-2',
+          date: '2026-10-15',
+          time: '20:15',
+          mood: 'good',
+          energy: 'Balanced 🔋',
+          weather: '🏠 Home',
+          starred: false,
+          title: 'Evening Catch-up & Project Review with @Meera',
+          people: ['Meera'],
+          tags: ['habits', 'progress'],
+          content: 'Refined my daily schedule blocks this evening. @Meera shared a great book recommendation on deep work habits. I think @Meera is one of the most disciplined and encouraging people in my circle.'
+        }
+      ],
+      people: [
+        {
+          id: 'p-1',
+          name: 'Rohan',
+          relation: 'Friend',
+          vibe: '🤝 Trusted & Reliable',
+          summary: 'Brings calm, practical clarity when things get complicated. Gives honest, grounded feedback.',
+          thoughts: [
+            {
+              date: '2026-10-17',
+              time: '09:30',
+              mood: 'great',
+              entryTitle: 'Morning Walk & Architecture Brainstorm with @Rohan',
+              text: 'Caught up with @Rohan over chai to discuss the new local app layout. @Rohan always brings calm, practical clarity when designs get complicated, and I really respect his honest feedback.'
+            }
+          ]
+        },
+        {
+          id: 'p-2',
+          name: 'Meera',
+          relation: 'Colleague',
+          vibe: '🌟 Inspiring & Positive',
+          summary: 'One of the most disciplined and encouraging people in my circle. Great taste in books and deep work systems.',
+          thoughts: [
+            {
+              date: '2026-10-15',
+              time: '20:15',
+              mood: 'good',
+              entryTitle: 'Evening Catch-up & Project Review with @Meera',
+              text: '@Meera shared a great book recommendation on deep work habits. I think @Meera is one of the most disciplined and encouraging people in my circle.'
+            }
+          ]
+        }
+      ],
+      schedule: [
+        { id: 'sc-1', date: '2026-10-17', start: '07:00', end: '08:00', title: 'Morning Walk & Hydration', category: 'Health', notes: 'Fresh air before screen time', completed: true },
+        { id: 'sc-2', date: '2026-10-17', start: '09:00', end: '11:30', title: 'Deep Work: Core App Development', category: 'Deep Work', notes: 'Zero notifications, phone on silent', completed: true },
+        { id: 'sc-3', date: '2026-10-17', start: '13:00', end: '14:00', title: 'Lunch & Midday Reset', category: 'Rest', notes: 'Light meal + short walk', completed: false },
+        { id: 'sc-4', date: '2026-10-17', start: '16:00', end: '17:30', title: 'Review Finances & Admin Tasks', category: 'Personal', notes: 'Log weekly expenses & clear inbox', completed: false },
+        { id: 'sc-5', date: '2026-10-17', start: '21:00', end: '21:45', title: 'Evening Journal & Reading', category: 'Routine', notes: 'Reflect on today & plan tomorrow', completed: false }
+      ],
+      tasks: [
+        { id: 'tk-1', title: 'Audit monthly recurring bills & cancel unused subscriptions', dueDate: '2026-10-18', priority: 'high', completed: false, category: 'Finance' },
+        { id: 'tk-2', title: 'Back up primary local files to encrypted external drive', dueDate: '2026-10-20', priority: 'medium', completed: false, category: 'Tech' },
+        { id: 'tk-3', title: '30-minute afternoon cardio session', dueDate: '2026-10-17', priority: 'low', completed: true, category: 'Health' },
+        { id: 'tk-4', title: 'Review upcoming milestone targets', dueDate: '2026-10-22', priority: 'medium', completed: false, category: 'Work' }
+      ],
+      habits: [
+        { id: 'hb-1', name: 'Morning Walk / Exercise', history: { '2026-10-17': true, '2026-10-16': true, '2026-10-15': true } },
+        { id: 'hb-2', name: 'Read 20+ Pages', history: { '2026-10-16': true, '2026-10-15': true } },
+        { id: 'hb-3', name: 'Drink 2.5L Water', history: { '2026-10-17': true, '2026-10-16': true } },
+        { id: 'hb-4', name: 'No Screens 30m Before Sleep', history: { '2026-10-15': true } }
+      ],
+      vault: {
+        masterHash: null,
+        isUnlocked: false,
+        items: [
+          { id: 'pw-1', title: 'Primary Email Account', username: 'alex.secure@pm.me', password: 'K9#m$L2!vQ8*xZ1w', url: 'https://mail.proton.me', category: 'Personal', notes: 'Recovery codes stored in physical safe' },
+          { id: 'pw-2', title: 'Primary Banking Portal', username: 'bank_user_online', password: 'P@ssw0rdSecure!942', url: 'https://bank.example.com', category: 'Finance', notes: 'Hardware token enabled' },
+          { id: 'pw-3', title: 'GitHub Developer Account', username: 'alex-builder', password: 'gH7#tY9$kL4!wM2@', url: 'https://github.com', category: 'Developer', notes: 'FIDO2 WebAuthn key required' }
+        ]
+      },
+      scratchpad: 'Quick thoughts, fleeting ideas, phone numbers, or code snippets live here. Saved instantly on this device.'
+    };
+
+    let state = loadState();
+
+    function loadState() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          return {
+            ...INITIAL_STATE,
+            ...parsed,
+            user: { ...INITIAL_STATE.user, ...(parsed.user || {}) },
+            people: Array.isArray(parsed.people) && parsed.people.length ? parsed.people : INITIAL_STATE.people,
+            schedule: Array.isArray(parsed.schedule) && parsed.schedule.length ? parsed.schedule : INITIAL_STATE.schedule,
+            vault: { ...INITIAL_STATE.vault, ...(parsed.vault || {}), isUnlocked: false }
+          };
+        }
+      } catch (e) {
+        console.warn('Storage read fallback', e);
+      }
+      return JSON.parse(JSON.stringify(INITIAL_STATE));
+    }
+
+    function saveState() {
+      try {
+        const stateToSave = {
+          ...state,
+          vault: {
+            ...state.vault,
+            isUnlocked: false
+          }
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stateToSave));
+      } catch (e) {
+        console.error('Storage write error', e);
+        showToast('Storage limit reached or blocked', 'error');
+      }
+    }
+
+    // --- Helpers ---
+    function formatCurrency(amount) {
+      const sym = state.user.currency || '₹';
+      return `${sym}${Number(amount || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+
+    function formatDate(dateStr) {
+      if (!dateStr) return '';
+      try {
+        const d = new Date(dateStr + 'T00:00:00');
+        return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+      } catch (e) {
+        return dateStr;
+      }
+    }
+
+    function formatTime12h(timeStr) {
+      if (!timeStr) return '';
+      const parts = timeStr.split(':');
+      if (parts.length < 2) return timeStr;
+      let h = parseInt(parts[0], 10);
+      const m = parts[1];
+      const ampm = h >= 12 ? 'PM' : 'AM';
+      h = h % 12 || 12;
+      return `${String(h).padStart(2, '0')}:${m} ${ampm}`;
+    }
+
+    function getTodayString() {
+      const d = new Date();
+      const month = String(d.getMonth() + 1).padStart(2, '0');
+      const day = String(d.getDate()).padStart(2, '0');
+      return `${d.getFullYear()}-${month}-${day}`;
+    }
+
+    function getCurrentTimeString() {
+      const d = new Date();
+      return `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    // Live Clock
+    function updateLiveClocks() {
+      const now = new Date();
+      const tStr = now.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      const el1 = document.getElementById('overviewLiveTime');
+      const el2 = document.getElementById('mobileLiveClock');
+      if (el1) el1.textContent = tStr;
+      if (el2) el2.textContent = tStr;
+    }
+    setInterval(updateLiveClocks, 1000);
+
+    // SHA-256 for Master Password
+    async function sha256(message) {
+      try {
+        if (window.crypto && crypto.subtle) {
+          const msgBuffer = new TextEncoder().encode(message + '_life_os_salt_2026');
+          const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+          const hashArray = Array.from(new Uint8Array(hashBuffer));
+          return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+      } catch (e) {
+        console.warn(e);
+      }
+      let hash = 0;
+      for (let i = 0; i < message.length; i++) {
+        hash = ((hash << 5) - hash) + message.charCodeAt(i);
+        hash |= 0;
+      }
+      return 'fb_' + Math.abs(hash).toString(16);
+    }
+
+    function showToast(msg, type = 'success') {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = `px-4 py-2.5 rounded-xl text-xs font-medium shadow-2xl flex items-center gap-2 transform transition-all duration-300 translate-y-2 opacity-0 pointer-events-auto ${
+        type === 'error' ? 'bg-rose-600 text-white' : 'bg-slate-800 border border-slate-700 text-slate-100'
+      }`;
+      const icon = type === 'error' ? '⚠️' : '✓';
+      toast.innerHTML = `<span class="text-sm">${icon}</span><span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => toast.classList.remove('translate-y-2', 'opacity-0'), 10);
+      setTimeout(() => {
+        toast.classList.add('translate-y-2', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    function copyToClipboard(text, label = 'Copied') {
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => showToast(`${label} to clipboard!`)).catch(() => fallbackCopy(text, label));
+      } else {
+        fallbackCopy(text, label);
+      }
+    }
+
+    function fallbackCopy(text, label) {
+      const el = document.createElement('textarea');
+      el.value = text;
+      el.style.position = 'fixed';
+      el.style.opacity = '0';
+      document.body.appendChild(el);
+      el.select();
+      try {
+        document.execCommand('copy');
+        showToast(`${label} to clipboard!`);
+      } catch (err) {
+        showToast('Unable to copy text', 'error');
+      }
+      document.body.removeChild(el);
+    }
+
+    let pendingConfirmAction = null;
+    function openConfirmModal(title, msg, onProceed) {
+      document.getElementById('confirmModalTitle').textContent = title;
+      document.getElementById('confirmModalMsg').textContent = msg;
+      pendingConfirmAction = onProceed;
+      document.getElementById('confirmModal').classList.remove('hidden');
+    }
+
+    document.getElementById('confirmModalCancelBtn').addEventListener('click', () => {
+      document.getElementById('confirmModal').classList.add('hidden');
+      pendingConfirmAction = null;
+    });
+
+    document.getElementById('confirmModalProceedBtn').addEventListener('click', () => {
+      if (typeof pendingConfirmAction === 'function') pendingConfirmAction();
+      document.getElementById('confirmModal').classList.add('hidden');
+      pendingConfirmAction = null;
+    });
+
+    // --- Navigation Tabs ---
+    const navItems = document.querySelectorAll('.nav-item');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    function updateGlobalBadges() {
+      const today = getTodayString();
+      const todaySched = (state.schedule || []).filter(s => s.date === today);
+      const peopleCount = (state.people || []).length;
+      document.getElementById('navScheduleBadge').textContent = todaySched.length;
+      document.getElementById('navPeopleBadge').textContent = peopleCount;
+      document.getElementById('gridTileScheduleCount').textContent = `${todaySched.length} blocks today`;
+      document.getElementById('gridTileJournalCount').textContent = `${state.journal.length} entries`;
+      document.getElementById('gridTilePeopleCount').textContent = `${peopleCount} profiles`;
+      const pendingTasks = state.tasks.filter(t => !t.completed).length;
+      document.getElementById('gridTileTasksCount').textContent = `${pendingTasks} active`;
+      let inc = 0, exp = 0;
+      state.transactions.forEach(t => { if (t.type === 'income') inc += Number(t.amount); else exp += Number(t.amount); });
+      document.getElementById('gridTileMoneyVal').textContent = formatCurrency(inc - exp);
+    }
+
+    function switchTab(tabId) {
+      navItems.forEach(item => {
+        if (item.dataset.tab === tabId) {
+          item.classList.add('bg-slate-800/90', 'text-white');
+          item.classList.remove('text-slate-400');
+        } else {
+          item.classList.remove('bg-slate-800/90', 'text-white');
+          item.classList.add('text-slate-400');
+        }
+      });
+
+      document.querySelectorAll('.grid-nav-tile').forEach(tile => {
+        if (tile.dataset.tabLink === tabId) {
+          tile.classList.add('ring-2', 'ring-indigo-500/70', 'bg-slate-900');
+        } else {
+          tile.classList.remove('ring-2', 'ring-indigo-500/70', 'bg-slate-900');
+        }
+      });
+
+      tabContents.forEach(tab => {
+        if (tab.id === `tab-${tabId}`) tab.classList.remove('hidden');
+        else tab.classList.add('hidden');
+      });
+
+      document.getElementById('sidebar').classList.add('-translate-x-full');
+      updateGlobalBadges();
+
+      if (tabId === 'overview') renderOverview();
+      if (tabId === 'schedule') renderSchedule();
+      if (tabId === 'journal') renderJournal();
+      if (tabId === 'people') renderPeople();
+      if (tabId === 'money') renderMoney();
+      if (tabId === 'time') renderTime();
+      if (tabId === 'passwords') renderPasswords();
+      if (tabId === 'settings') renderSettings();
+    }
+
+    navItems.forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+    document.querySelectorAll('[data-tab-link]').forEach(el => {
+      el.addEventListener('click', () => switchTab(el.dataset.tabLink));
+    });
+
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('-translate-x-full');
+    });
+    document.getElementById('closeSidebarBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.add('-translate-x-full');
+    });
+
+    document.querySelectorAll('.close-modal').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const modal = e.target.closest('.fixed');
+        if (modal) modal.classList.add('hidden');
+      });
+    });
+
+    // ================= PERSON THOUGHT EXTRACTION ENGINE =================
+    // Extracts people mentioned via @Name, explicit people list, or existing known names,
+    // and pulls out the specific sentences where each person is talked about.
+    function extractPeopleAndThoughts(content, explicitPeopleStr = '') {
+      const text = String(content || '');
+      const foundNames = new Set();
+
+      // 1. Find @Name mentions (e.g. @Rohan, @Meera_K)
+      const mentionRegex = /@([A-Za-z][A-Za-z0-9_-]{1,25})/g;
+      let match;
+      while ((match = mentionRegex.exec(text)) !== null) {
+        const cleanName = match[1].trim();
+        if (cleanName) foundNames.add(cleanName.charAt(0).toUpperCase() + cleanName.slice(1));
+      }
+
+      // 2. Explicit comma-separated names
+      if (explicitPeopleStr) {
+        explicitPeopleStr.split(',').forEach(raw => {
+          const n = raw.trim().replace(/^@/, '');
+          if (n) foundNames.add(n.charAt(0).toUpperCase() + n.slice(1));
+        });
+      }
+
+      // 3. Check existing known people in state.people mentioned by plain name in text
+      (state.people || []).forEach(p => {
+        if (p.name) {
+          const escaped = p.name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const wordRe = new RegExp(`\\b${escaped}\\b`, 'i');
+          if (wordRe.test(text)) {
+            foundNames.add(p.name);
+          }
+        }
+      });
+
+      // Split text into sentences to extract relevant thoughts per person
+      const sentences = text
+        .split(/(?<=[.!?])\s+|\n+/)
+        .map(s => s.trim())
+        .filter(Boolean);
+
+      const results = [];
+      foundNames.forEach(personName => {
+        const escaped = personName.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const re = new RegExp(`(@?\\b${escaped}\\b)`, 'i');
+        const matchingSentences = sentences.filter(s => re.test(s));
+        const extractedThought = matchingSentences.length > 0
+          ? matchingSentences.join(' ')
+          : text.trim();
+        results.push({
+          name: personName,
+          thought: extractedThought
+        });
+      });
+
+      return results;
+    }
+
+    function syncExtractedPeopleToDossier(extractedList, entryMeta) {
+      if (!extractedList || extractedList.length === 0) return;
+      state.people = state.people || [];
+
+      extractedList.forEach(({ name, thought }) => {
+        let person = state.people.find(p => p.name.toLowerCase() === name.toLowerCase());
+        const thoughtRecord = {
+          date: entryMeta.date || getTodayString(),
+          time: entryMeta.time || getCurrentTimeString(),
+          mood: entryMeta.mood || 'good',
+          entryTitle: entryMeta.title || 'Journal Reflection',
+          text: thought
+        };
+
+        if (!person) {
+          person = {
+            id: 'p-' + Date.now() + '-' + Math.random().toString(36).slice(2, 6),
+            name: name,
+            relation: 'Friend',
+            vibe: '🤝 Trusted & Reliable',
+            summary: thought.replace(new RegExp(`@${name}`, 'gi'), name),
+            thoughts: [thoughtRecord]
+          };
+          state.people.unshift(person);
+        } else {
+          person.thoughts = person.thoughts || [];
+          // Avoid duplicate exact text on same date/title
+          const exists = person.thoughts.some(t => t.text === thoughtRecord.text && t.date === thoughtRecord.date);
+          if (!exists) {
+            person.thoughts.unshift(thoughtRecord);
+          }
+          if (!person.summary) {
+            person.summary = thought.replace(new RegExp(`@${name}`, 'gi'), name);
+          }
+        }
+      });
+    }
+
+    // ================= 1. OVERVIEW (BENTO GRID) =================
+    function renderOverview() {
+      updateLiveClocks();
+      const now = new Date();
+      const hrs = now.getHours();
+      let greeting = 'Good morning';
+      if (hrs >= 12 && hrs < 17) greeting = 'Good afternoon';
+      else if (hrs >= 17) greeting = 'Good evening';
+
+      const userName = state.user.name || 'Friend';
+      document.getElementById('greetingHeading').textContent = `${greeting}, ${userName}`;
+      document.getElementById('overviewDateBadge').textContent = now.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+
+      let income = 0, expense = 0;
+      state.transactions.forEach(t => {
+        if (t.type === 'income') income += Number(t.amount);
+        else expense += Number(t.amount);
+      });
+      document.getElementById('statNetBalance').textContent = formatCurrency(income - expense);
+      document.getElementById('statSubIncome').textContent = formatCurrency(income);
+      document.getElementById('statSubExpense').textContent = formatCurrency(expense);
+
+      const todayStr = getTodayString();
+      const todaySchedule = (state.schedule || [])
+        .filter(s => s.date === todayStr)
+        .sort((a, b) => (a.start || '').localeCompare(b.start || ''));
+      document.getElementById('statScheduleBlocks').textContent = `${todaySchedule.filter(s => s.completed).length}/${todaySchedule.length}`;
+      const nextBlock = todaySchedule.find(s => !s.completed);
+      document.getElementById('statNextScheduleSub').textContent = nextBlock ? `Next: ${nextBlock.start} ${nextBlock.title}` : 'All blocks complete';
+
+      document.getElementById('statPeopleCount').textContent = (state.people || []).length;
+
+      const pendingTasks = state.tasks.filter(t => !t.completed);
+      const completedToday = state.tasks.filter(t => t.completed).length;
+      document.getElementById('statPendingTasks').textContent = pendingTasks.length;
+      document.getElementById('statCompletedTasksText').textContent = `${completedToday} completed`;
+
+      const doneHabits = state.habits.filter(h => h.history && h.history[todayStr]).length;
+      document.getElementById('statHabitProgress').textContent = `${doneHabits} / ${state.habits.length}`;
+      document.getElementById('statVaultCount').textContent = state.vault.items.length;
+
+      // 1. Overview Schedule List
+      const schedEl = document.getElementById('overviewScheduleList');
+      schedEl.innerHTML = '';
+      if (todaySchedule.length === 0) {
+        schedEl.innerHTML = `<div class="p-4 text-center text-xs text-slate-500 bg-slate-950 rounded-xl">No blocks scheduled for today yet.</div>`;
+      } else {
+        todaySchedule.slice(0, 5).forEach(s => {
+          const row = document.createElement('div');
+          row.className = `flex items-center justify-between p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 text-xs ${s.completed ? 'opacity-60' : ''}`;
+          row.innerHTML = `
+            <div class="flex items-center gap-2.5 overflow-hidden">
+              <input type="checkbox" data-ov-sched="${s.id}" ${s.completed ? 'checked' : ''} class="rounded border-slate-700 bg-slate-900 text-sky-500 cursor-pointer">
+              <div class="truncate">
+                <div class="font-medium text-slate-200 truncate ${s.completed ? 'line-through text-slate-500' : ''}">${escapeHtml(s.title)}</div>
+                <div class="text-[10px] font-mono text-sky-400">${formatTime12h(s.start)} - ${formatTime12h(s.end)}</div>
+              </div>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded bg-slate-900 text-slate-400">${escapeHtml(s.category)}</span>
+          `;
+          schedEl.appendChild(row);
+        });
+        schedEl.querySelectorAll('[data-ov-sched]').forEach(cb => {
+          cb.addEventListener('change', (e) => {
+            const item = state.schedule.find(x => x.id === e.target.dataset.ovSched);
+            if (item) {
+              item.completed = e.target.checked;
+              saveState();
+              renderOverview();
+            }
+          });
+        });
+      }
+
+      // 2. Overview People & Thoughts List
+      const peopleEl = document.getElementById('overviewPeopleList');
+      peopleEl.innerHTML = '';
+      if (!state.people || state.people.length === 0) {
+        peopleEl.innerHTML = `<div class="p-4 text-center text-xs text-slate-500 bg-slate-950 rounded-xl">Mention @Name in your journal to auto-create person thoughts!</div>`;
+      } else {
+        state.people.slice(0, 4).forEach(p => {
+          const card = document.createElement('div');
+          card.className = 'p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 hover:border-fuchsia-500/40 transition cursor-pointer';
+          card.innerHTML = `
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-bold text-fuchsia-300">@${escapeHtml(p.name)}</span>
+              <span class="text-[10px] px-1.5 py-0.5 rounded bg-slate-900 text-slate-400">${escapeHtml(p.relation)}</span>
+            </div>
+            <p class="text-[11px] text-slate-300 line-clamp-2">${escapeHtml(p.summary)}</p>
+          `;
+          card.addEventListener('click', () => switchTab('people'));
+          peopleEl.appendChild(card);
+        });
+      }
+
+      // 3. Overview Tasks List
+      const taskListEl = document.getElementById('overviewTaskList');
+      taskListEl.innerHTML = '';
+      if (pendingTasks.length === 0) {
+        taskListEl.innerHTML = `<div class="p-4 text-center text-xs text-slate-500 bg-slate-950 rounded-xl">All clear! No pending tasks right now.</div>`;
+      } else {
+        pendingTasks.slice(0, 4).forEach(t => {
+          const item = document.createElement('div');
+          item.className = 'flex items-center justify-between p-2.5 rounded-xl bg-slate-950 border border-slate-800/80 hover:border-slate-700 transition text-xs';
+          item.innerHTML = `
+            <div class="flex items-center gap-2.5 overflow-hidden">
+              <input type="checkbox" data-task-id="${t.id}" class="task-checkbox rounded border-slate-700 bg-slate-900 text-indigo-600 focus:ring-0 cursor-pointer">
+              <span class="truncate text-slate-200">${escapeHtml(t.title)}</span>
+            </div>
+            <span class="text-[10px] px-2 py-0.5 rounded font-mono ${
+              t.priority === 'high' ? 'bg-rose-500/20 text-rose-300' : (t.priority === 'medium' ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-400')
+            }">${t.priority}</span>
+          `;
+          taskListEl.appendChild(item);
+        });
+        taskListEl.querySelectorAll('.task-checkbox').forEach(cb => {
+          cb.addEventListener('change', (e) => {
+            const targetTask = state.tasks.find(x => x.id === e.target.dataset.taskId);
+            if (targetTask) {
+              targetTask.completed = true;
+              saveState();
+              showToast('Task marked complete!');
+              renderOverview();
+            }
+          });
+        });
+      }
+
+      // 4. Overview Recent Journal Grid
+      const jGrid = document.getElementById('overviewJournalGrid');
+      jGrid.innerHTML = '';
+      state.journal.slice(0, 2).forEach(j => {
+        const div = document.createElement('div');
+        div.className = 'p-3.5 rounded-xl bg-slate-950 border border-slate-800/80 space-y-2';
+        const peopleTags = (j.people || []).map(p => `<span class="text-[10px] px-1.5 py-0.5 rounded bg-fuchsia-500/15 text-fuchsia-300 font-medium">@${escapeHtml(p)}</span>`).join(' ');
+        div.innerHTML = `
+          <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+            <span>${formatDate(j.date)} ${j.time ? '• ' + formatTime12h(j.time) : ''}</span>
+            <span class="text-amber-300">${escapeHtml(j.mood)}</span>
+          </div>
+          <div class="text-xs font-bold text-white truncate">${escapeHtml(j.title)}</div>
+          <p class="text-[11px] text-slate-300 line-clamp-2 leading-relaxed">${escapeHtml(j.content)}</p>
+          <div class="flex flex-wrap gap-1 pt-1">${peopleTags}</div>
+        `;
+        jGrid.appendChild(div);
+      });
+
+      document.getElementById('quickScratchpad').value = state.scratchpad || '';
+    }
+
+    document.getElementById('overviewQuickAddScheduleBtn').addEventListener('click', () => {
+      openScheduleModal();
+    });
+
+    // Scratchpad
+    const scratchpadInput = document.getElementById('quickScratchpad');
+    let scratchpadTimer;
+    scratchpadInput.addEventListener('input', (e) => {
+      document.getElementById('scratchpadStatus').textContent = 'Saving...';
+      clearTimeout(scratchpadTimer);
+      scratchpadTimer = setTimeout(() => {
+        state.scratchpad = e.target.value;
+        saveState();
+        document.getElementById('scratchpadStatus').textContent = 'Autosaved';
+      }, 400);
+    });
+
+    document.getElementById('clearScratchpadBtn').addEventListener('click', () => {
+      openConfirmModal('Clear Scratchpad', 'Are you sure you want to erase your scratchpad notes?', () => {
+        state.scratchpad = '';
+        scratchpadInput.value = '';
+        saveState();
+        showToast('Scratchpad cleared');
+      });
+    });
+
+    document.getElementById('overviewQuickAddTaskBtn').addEventListener('click', () => {
+      document.getElementById('taskDueDate').value = getTodayString();
+      document.getElementById('addTaskModal').classList.remove('hidden');
+    });
+
+    // ================= 2. DAILY SCHEDULE MODULE =================
+    const scheduleDateFilter = document.getElementById('scheduleDateFilter');
+    scheduleDateFilter.value = getTodayString();
+
+    function renderSchedule() {
+      const selectedDate = scheduleDateFilter.value || getTodayString();
+      const blocks = (state.schedule || [])
+        .filter(s => s.date === selectedDate)
+        .sort((a, b) => (a.start || '').localeCompare(b.start || ''));
+
+      const doneCount = blocks.filter(b => b.completed).length;
+      const pct = blocks.length > 0 ? Math.round((doneCount / blocks.length) * 100) : 0;
+
+      // Calculate total hours
+      let totalMins = 0;
+      blocks.forEach(b => {
+        if (b.start && b.end) {
+          const [sh, sm] = b.start.split(':').map(Number);
+          const [eh, em] = b.end.split(':').map(Number);
+          const diff = (eh * 60 + em) - (sh * 60 + sm);
+          if (diff > 0) totalMins += diff;
+        }
+      });
+
+      document.getElementById('schedTotalBlocks').textContent = blocks.length;
+      document.getElementById('schedDoneBlocks').textContent = doneCount;
+      document.getElementById('schedCompletionPct').textContent = `${pct}% completed`;
+      document.getElementById('schedTotalHours').textContent = `${(totalMins / 60).toFixed(1)}h`;
+
+      const nextSlot = blocks.find(b => !b.completed);
+      document.getElementById('schedNextSlotTitle').textContent = nextSlot ? nextSlot.title : 'All Done / Free';
+      document.getElementById('schedNextSlotTime').textContent = nextSlot ? `${formatTime12h(nextSlot.start)} - ${formatTime12h(nextSlot.end)}` : '--:--';
+
+      const container = document.getElementById('scheduleGridContainer');
+      container.innerHTML = '';
+
+      if (blocks.length === 0) {
+        container.innerHTML = `<div class="col-span-full p-10 text-center text-slate-500 bento-card text-xs">No time blocks scheduled for ${formatDate(selectedDate)}. Click "+ Add Time Block" or "Load Ideal Day Template" to populate your day.</div>`;
+        return;
+      }
+
+      const catColors = {
+        'Deep Work': 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30',
+        'Routine': 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+        'Health': 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+        'Study': 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
+        'Meeting': 'bg-fuchsia-500/15 text-fuchsia-300 border-fuchsia-500/30',
+        'Personal': 'bg-sky-500/15 text-sky-300 border-sky-500/30',
+        'Rest': 'bg-slate-800 text-slate-300 border-slate-700'
+      };
+
+      blocks.forEach(block => {
+        const card = document.createElement('div');
+        card.className = `bento-card p-5 flex flex-col justify-between space-y-3 ${block.completed ? 'opacity-65' : ''}`;
+        const badgeStyle = catColors[block.category] || catColors['Personal'];
+
+        card.innerHTML = `
+          <div class="space-y-2">
+            <div class="flex items-center justify-between gap-2">
+              <span class="text-xs font-mono font-bold text-sky-400 bg-sky-950/60 border border-sky-800/60 px-2.5 py-1 rounded-lg">
+                ${formatTime12h(block.start)} – ${formatTime12h(block.end)}
+              </span>
+              <span class="text-[10px] px-2 py-0.5 rounded-full border ${badgeStyle}">${escapeHtml(block.category)}</span>
+            </div>
+            <div class="flex items-start gap-2.5 pt-1">
+              <input type="checkbox" data-sched-toggle="${block.id}" ${block.completed ? 'checked' : ''} class="mt-1 w-4 h-4 rounded border-slate-700 bg-slate-900 text-sky-500 cursor-pointer">
+              <div>
+                <h4 class="text-sm font-bold text-white ${block.completed ? 'line-through text-slate-400' : ''}">${escapeHtml(block.title)}</h4>
+                ${block.notes ? `<p class="text-xs text-slate-400 mt-1">${escapeHtml(block.notes)}</p>` : ''}
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center justify-between pt-2 border-t border-slate-800/70 text-[11px] text-slate-500">
+            <span>${formatDate(block.date)}</span>
+            <div class="flex items-center gap-2">
+              <button type="button" data-sched-edit="${block.id}" class="text-slate-400 hover:text-white">Edit</button>
+              <button type="button" data-sched-del="${block.id}" class="text-slate-400 hover:text-rose-400">Delete</button>
+            </div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      container.querySelectorAll('[data-sched-toggle]').forEach(cb => {
+        cb.addEventListener('change', (e) => {
+          const item = state.schedule.find(x => x.id === e.target.dataset.schedToggle);
+          if (item) {
+            item.completed = e.target.checked;
+            saveState();
+            renderSchedule();
+            updateGlobalBadges();
+          }
+        });
+      });
+
+      container.querySelectorAll('[data-sched-edit]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const item = state.schedule.find(x => x.id === e.currentTarget.dataset.schedEdit);
+          if (item) openScheduleModal(item);
+        });
+      });
+
+      container.querySelectorAll('[data-sched-del]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.currentTarget.dataset.schedDel;
+          state.schedule = state.schedule.filter(x => x.id !== id);
+          saveState();
+          showToast('Schedule block removed');
+          renderSchedule();
+          updateGlobalBadges();
+        });
+      });
+    }
+
+    function openScheduleModal(item = null) {
+      document.getElementById('scheduleForm').reset();
+      if (item) {
+        document.getElementById('schedEditId').value = item.id;
+        document.getElementById('schedTitle').value = item.title;
+        document.getElementById('schedDate').value = item.date;
+        document.getElementById('schedStart').value = item.start;
+        document.getElementById('schedEnd').value = item.end;
+        document.getElementById('schedCategory').value = item.category || 'Deep Work';
+        document.getElementById('schedNotes').value = item.notes || '';
+        document.getElementById('scheduleModalTitle').textContent = 'Edit Schedule Block';
+      } else {
+        document.getElementById('schedEditId').value = '';
+        document.getElementById('schedDate').value = scheduleDateFilter.value || getTodayString();
+        document.getElementById('schedStart').value = getCurrentTimeString();
+        document.getElementById('schedEnd').value = '18:00';
+        document.getElementById('scheduleModalTitle').textContent = 'Add Daily Schedule Block';
+      }
+      document.getElementById('scheduleModal').classList.remove('hidden');
+    }
+
+    scheduleDateFilter.addEventListener('change', renderSchedule);
+    document.getElementById('scheduleTodayBtn').addEventListener('click', () => {
+      scheduleDateFilter.value = getTodayString();
+      renderSchedule();
+    });
+    document.getElementById('openAddScheduleModalBtn').addEventListener('click', () => openScheduleModal());
+
+    document.getElementById('loadSampleScheduleBtn').addEventListener('click', () => {
+      const d = scheduleDateFilter.value || getTodayString();
+      const template = [
+        { id: 'sc-' + Date.now() + '1', date: d, start: '06:30', end: '07:30', title: 'Morning Exercise & Sunlight', category: 'Health', notes: 'Hydrate + 30m movement', completed: false },
+        { id: 'sc-' + Date.now() + '2', date: d, start: '08:30', end: '11:00', title: 'Deep Work Block #1 (Core Priority)', category: 'Deep Work', notes: 'Focus on highest-impact task', completed: false },
+        { id: 'sc-' + Date.now() + '3', date: d, start: '11:30', end: '13:00', title: 'Admin, Calls & Study', category: 'Study', notes: 'Review notes & messages', completed: false },
+        { id: 'sc-' + Date.now() + '4', date: d, start: '14:30', end: '17:00', title: 'Deep Work Block #2 (Execution)', category: 'Deep Work', notes: 'Project milestones', completed: false },
+        { id: 'sc-' + Date.now() + '5', date: d, start: '20:30', end: '21:15', title: 'Daily Journaling & Expense Check', category: 'Routine', notes: 'Log thoughts & plan tomorrow', completed: false }
+      ];
+      state.schedule.push(...template);
+      saveState();
+      showToast('Ideal Day schedule loaded!');
+      renderSchedule();
+      updateGlobalBadges();
+    });
+
+    document.getElementById('scheduleForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('schedEditId').value;
+      const title = document.getElementById('schedTitle').value.trim();
+      const date = document.getElementById('schedDate').value;
+      const start = document.getElementById('schedStart').value;
+      const end = document.getElementById('schedEnd').value;
+      const category = document.getElementById('schedCategory').value;
+      const notes = document.getElementById('schedNotes').value.trim();
+
+      if (!title || !date || !start || !end) return;
+
+      if (id) {
+        const item = state.schedule.find(x => x.id === id);
+        if (item) {
+          Object.assign(item, { title, date, start, end, category, notes });
+        }
+      } else {
+        state.schedule.push({
+          id: 'sc-' + Date.now(),
+          title,
+          date,
+          start,
+          end,
+          category,
+          notes,
+          completed: false
+        });
+      }
+
+      saveState();
+      document.getElementById('scheduleModal').classList.add('hidden');
+      showToast('Schedule block saved!');
+      renderSchedule();
+      renderOverview();
+      updateGlobalBadges();
+    });
+
+    // ================= 3. JOURNALING STUDIO & PEOPLE AUTO-EXTRACTOR =================
+    const moodIcons = {
+      great: '🤩 Thrilled',
+      good: '😊 Good',
+      calm: '😌 Calm',
+      neutral: '😐 Neutral',
+      down: '😔 Down',
+      stressed: '😤 Stressed'
+    };
+
+    const journalPrompts = [
+      'Who did you interact with today (use @Name), and what did you appreciate or notice about them?',
+      'What was the single most meaningful moment of your day today, and why?',
+      'What is one habit or decision that gave you energy today, and one that drained it?',
+      'If you could give advice to yourself this morning, what would you say?',
+      'Who in your life deserves a thank-you right now (tag @Name), and what do you think about their impact on you?'
+    ];
+
+    function initStudioDefaults() {
+      const dInput = document.getElementById('studioDate');
+      const tInput = document.getElementById('studioTime');
+      if (!dInput.value) dInput.value = getTodayString();
+      if (!tInput.value) tInput.value = getCurrentTimeString();
+      updateLiveStudioExtractor();
+    }
+
+    document.getElementById('studioNowBtn').addEventListener('click', () => {
+      document.getElementById('studioDate').value = getTodayString();
+      document.getElementById('studioTime').value = getCurrentTimeString();
+      showToast('Stamped current date & exact time!');
+    });
+
+    document.getElementById('studioPromptBtn').addEventListener('click', () => {
+      const prompt = journalPrompts[Math.floor(Math.random() * journalPrompts.length)];
+      const bodyEl = document.getElementById('studioBody');
+      bodyEl.value = (bodyEl.value ? bodyEl.value + '\n\n' : '') + `Prompt: ${prompt}\n`;
+      bodyEl.focus();
+      updateLiveStudioExtractor();
+    });
+
+    document.querySelectorAll('[data-j-template]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.dataset.jTemplate;
+        const bodyEl = document.getElementById('studioBody');
+        const titleEl = document.getElementById('studioTitle');
+        if (type === 'gratitude') {
+          if (!titleEl.value) titleEl.value = 'Daily Gratitude & 3 Wins';
+          bodyEl.value = '1. Three things I am grateful for today:\n- \n\n2. Today\'s biggest win:\n- \n\n3. Someone I appreciated today (@Name): ';
+        } else if (type === 'person') {
+          if (!titleEl.value) titleEl.value = 'Thoughts & Reflections on @';
+          bodyEl.value = 'Spoke with @Name today.\n\nWhat stood out to me about them:\n\nWhat I genuinely think about @Name: ';
+        } else if (type === 'evening') {
+          if (!titleEl.value) titleEl.value = 'Evening Unwind & Review';
+          bodyEl.value = 'How today went overall:\n\nWhat I learned today:\n\nWhat I am letting go of before sleep: ';
+        } else if (type === 'clarity') {
+          if (!titleEl.value) titleEl.value = 'Mental Clarity Brain Dump';
+          bodyEl.value = 'Everything currently on my mind:\n\nWhat actually matters most right now:\n\nNext concrete step: ';
+        }
+        bodyEl.focus();
+        updateLiveStudioExtractor();
+      });
+    });
+
+    function updateLiveStudioExtractor() {
+      const text = document.getElementById('studioBody').value || '';
+      const explicitPeople = document.getElementById('studioPeopleInput').value || '';
+      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+      document.getElementById('studioWordCount').textContent = `${words} words • ${text.length} chars`;
+
+      const extracted = extractPeopleAndThoughts(text, explicitPeople);
+      const previewEl = document.getElementById('livePersonExtractPreview');
+      if (extracted.length === 0) {
+        previewEl.innerHTML = `
+          <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800/80 text-xs text-slate-500 text-center">
+            Mention anyone with <span class="text-fuchsia-400 font-mono">@Name</span> (or type their name in the People box) to automatically extract your thoughts about them into your People Dossier.
+          </div>
+        `;
+      } else {
+        previewEl.innerHTML = extracted.map(item => `
+          <div class="p-3 rounded-xl bg-fuchsia-950/20 border border-fuchsia-500/30 space-y-1">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-fuchsia-300">👤 @${escapeHtml(item.name)}</span>
+              <span class="text-[10px] text-emerald-400 font-mono">Will save to People tab</span>
+            </div>
+            <p class="text-[11px] text-slate-300 italic leading-relaxed">"${escapeHtml(item.thought)}"</p>
+          </div>
+        `).join('');
+      }
+    }
+
+    document.getElementById('studioBody').addEventListener('input', updateLiveStudioExtractor);
+    document.getElementById('studioPeopleInput').addEventListener('input', updateLiveStudioExtractor);
+
+    document.getElementById('studioClearBtn').addEventListener('click', () => {
+      document.getElementById('studioJournalForm').reset();
+      document.getElementById('studioEditId').value = '';
+      document.getElementById('studioComposerHeading').textContent = 'Quick Studio Composer';
+      initStudioDefaults();
+    });
+
+    document.getElementById('studioJournalForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const editId = document.getElementById('studioEditId').value;
+      const date = document.getElementById('studioDate').value || getTodayString();
+      const time = document.getElementById('studioTime').value || getCurrentTimeString();
+      const mood = document.getElementById('studioMood').value;
+      const energy = document.getElementById('studioEnergy').value;
+      const weather = document.getElementById('studioWeather').value;
+      const starred = document.getElementById('studioStarred').checked;
+      const title = document.getElementById('studioTitle').value.trim();
+      const tags = document.getElementById('studioTags').value.split(',').map(s => s.trim().replace(/^#/, '')).filter(Boolean);
+      const explicitPeople = document.getElementById('studioPeopleInput').value;
+      const content = document.getElementById('studioBody').value.trim();
+
+      if (!title || !content) {
+        showToast('Please enter a title and journal content', 'error');
+        return;
+      }
+
+      const extracted = extractPeopleAndThoughts(content, explicitPeople);
+      const peopleNames = extracted.map(x => x.name);
+
+      if (editId) {
+        const existing = state.journal.find(x => x.id === editId);
+        if (existing) {
+          Object.assign(existing, { date, time, mood, energy, weather, starred, title, tags, people: peopleNames, content });
+        }
+      } else {
+        state.journal.unshift({
+          id: 'jn-' + Date.now(),
+          date,
+          time,
+          mood,
+          energy,
+          weather,
+          starred,
+          title,
+          tags,
+          people: peopleNames,
+          content
+        });
+      }
+
+      // Sync extracted thoughts to People Dossier!
+      syncExtractedPeopleToDossier(extracted, { date, time, mood, title });
+
+      saveState();
+      document.getElementById('studioJournalForm').reset();
+      document.getElementById('studioEditId').value = '';
+      document.getElementById('studioComposerHeading').textContent = 'Quick Studio Composer';
+      initStudioDefaults();
+
+      const msg = extracted.length > 0
+        ? `Entry saved & thoughts logged for ${peopleNames.map(n => '@' + n).join(', ')}!`
+        : 'Journal entry saved!';
+      showToast(msg);
+      renderJournal();
+      updateGlobalBadges();
+    });
+
+    function highlightMentionsHtml(escapedText) {
+      return escapedText.replace(/@([A-Za-z][A-Za-z0-9_-]{1,25})/g, '<button type="button" data-jump-person="$1" class="text-fuchsia-300 font-semibold bg-fuchsia-500/15 px-1.5 py-0.5 rounded hover:bg-fuchsia-500/30 transition">@$1</button>');
+    }
+
+    function renderJournal() {
+      initStudioDefaults();
+
+      // Render quick-insert people pills in composer
+      const pillsEl = document.getElementById('quickInsertPeoplePills');
+      pillsEl.innerHTML = '';
+      (state.people || []).forEach(p => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'text-[10px] px-2 py-0.5 rounded-full bg-fuchsia-500/15 hover:bg-fuchsia-500/30 text-fuchsia-300 border border-fuchsia-500/30 transition';
+        btn.textContent = `+ @${p.name}`;
+        btn.addEventListener('click', () => {
+          const bodyEl = document.getElementById('studioBody');
+          bodyEl.value = (bodyEl.value ? bodyEl.value + ' ' : '') + `@${p.name} `;
+          bodyEl.focus();
+          updateLiveStudioExtractor();
+        });
+        pillsEl.appendChild(btn);
+      });
+
+      // Populate Person Filter dropdown
+      const personFilterEl = document.getElementById('journalPersonFilter');
+      const currentPersonVal = personFilterEl.value;
+      const allMentioned = new Set();
+      (state.people || []).forEach(p => allMentioned.add(p.name));
+      state.journal.forEach(j => (j.people || []).forEach(p => allMentioned.add(p)));
+
+      personFilterEl.innerHTML = `<option value="all">All People Mentioned</option>` +
+        Array.from(allMentioned).map(n => `<option value="${escapeHtml(n)}">👤 @${escapeHtml(n)}</option>`).join('');
+      if (Array.from(allMentioned).includes(currentPersonVal)) {
+        personFilterEl.value = currentPersonVal;
+      }
+
+      const container = document.getElementById('journalEntriesContainer');
+      const search = (document.getElementById('journalSearchInput').value || '').toLowerCase();
+      const moodFilter = document.getElementById('journalMoodFilter').value;
+      const pFilter = personFilterEl.value;
+
+      container.innerHTML = '';
+
+      let list = state.journal.slice().sort((a, b) => {
+        const dtA = `${a.date || ''}T${a.time || '00:00'}`;
+        const dtB = `${b.date || ''}T${b.time || '00:00'}`;
+        return dtB.localeCompare(dtA);
+      });
+
+      if (moodFilter !== 'all') list = list.filter(j => j.mood === moodFilter);
+      if (pFilter !== 'all') list = list.filter(j => (j.people || []).some(p => p.toLowerCase() === pFilter.toLowerCase()));
+      if (search) {
+        list = list.filter(j =>
+          (j.title && j.title.toLowerCase().includes(search)) ||
+          (j.content && j.content.toLowerCase().includes(search)) ||
+          (j.tags && j.tags.some(t => t.toLowerCase().includes(search))) ||
+          (j.people && j.people.some(p => p.toLowerCase().includes(search)))
+        );
+      }
+
+      if (list.length === 0) {
+        container.innerHTML = `<div class="col-span-full p-12 text-center text-slate-500 bento-card text-xs">No journal entries match your filter. Write a new reflection above!</div>`;
+        return;
+      }
+
+      list.forEach(entry => {
+        const card = document.createElement('article');
+        card.className = 'bento-card p-5 flex flex-col justify-between space-y-3';
+        const tagBadges = (entry.tags || []).map(t => `<span class="px-2 py-0.5 rounded-lg bg-slate-800 text-slate-400 text-[10px] font-mono">#${escapeHtml(t)}</span>`).join(' ');
+        const peopleBadges = (entry.people || []).map(p => `<button type="button" data-jump-person="${escapeHtml(p)}" class="px-2 py-0.5 rounded-lg bg-fuchsia-500/15 border border-fuchsia-500/30 text-fuchsia-300 text-[10px] font-semibold hover:bg-fuchsia-500/30 transition">👤 @${escapeHtml(p)}</button>`).join(' ');
+
+        card.innerHTML = `
+          <div class="space-y-2.5">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex flex-wrap items-center gap-1.5">
+                <span class="text-[11px] px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-300 font-medium">
+                  ${moodIcons[entry.mood] || '😊 Good'}
+                </span>
+                ${entry.energy ? `<span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300">${escapeHtml(entry.energy)}</span>` : ''}
+                ${entry.weather ? `<span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">${escapeHtml(entry.weather)}</span>` : ''}
+              </div>
+              <div class="flex items-center gap-1">
+                <button type="button" data-star-journal="${entry.id}" class="p-1 text-xs ${entry.starred ? 'text-amber-400' : 'text-slate-600 hover:text-amber-300'}" title="Bookmark">★</button>
+                <button type="button" data-edit-journal="${entry.id}" class="text-slate-400 hover:text-white p-1 transition" title="Edit">✎</button>
+                <button type="button" data-del-journal="${entry.id}" class="text-slate-400 hover:text-rose-400 p-1 transition" title="Delete">🗑</button>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-[11px] text-slate-400 font-mono mb-1">
+                📅 ${formatDate(entry.date)} ${entry.time ? `• 🕒 ${formatTime12h(entry.time)}` : ''}
+              </div>
+              <h3 class="text-base font-bold text-white tracking-tight">${escapeHtml(entry.title)}</h3>
+            </div>
+
+            <p class="text-xs text-slate-300 whitespace-pre-line leading-relaxed">${highlightMentionsHtml(escapeHtml(entry.content))}</p>
+          </div>
+
+          <div class="pt-2 border-t border-slate-800/70 flex flex-wrap items-center justify-between gap-2">
+            <div class="flex flex-wrap items-center gap-1.5">${peopleBadges}</div>
+            <div class="flex flex-wrap items-center gap-1">${tagBadges}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      // Jump to person dossier on clicking @Person badge
+      container.querySelectorAll('[data-jump-person]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const pName = e.currentTarget.dataset.jumpPerson;
+          document.getElementById('peopleSearchInput').value = pName;
+          switchTab('people');
+        });
+      });
+
+      container.querySelectorAll('[data-star-journal]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const entry = state.journal.find(x => x.id === e.currentTarget.dataset.starJournal);
+          if (entry) {
+            entry.starred = !entry.starred;
+            saveState();
+            renderJournal();
+          }
+        });
+      });
+
+      container.querySelectorAll('[data-edit-journal]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.currentTarget.dataset.editJournal;
+          const entry = state.journal.find(x => x.id === id);
+          if (entry) {
+            document.getElementById('studioEditId').value = entry.id;
+            document.getElementById('studioDate').value = entry.date;
+            document.getElementById('studioTime').value = entry.time || '12:00';
+            document.getElementById('studioMood').value = entry.mood || 'good';
+            document.getElementById('studioEnergy').value = entry.energy || 'Balanced 🔋';
+            document.getElementById('studioWeather').value = entry.weather || '🏠 Home';
+            document.getElementById('studioStarred').checked = Boolean(entry.starred);
+            document.getElementById('studioTitle').value = entry.title;
+            document.getElementById('studioTags').value = (entry.tags || []).join(', ');
+            document.getElementById('studioPeopleInput').value = (entry.people || []).join(', ');
+            document.getElementById('studioBody').value = entry.content;
+            document.getElementById('studioComposerHeading').textContent = 'Editing Journal Entry';
+            updateLiveStudioExtractor();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }
+        });
+      });
+
+      container.querySelectorAll('[data-del-journal]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.currentTarget.dataset.delJournal;
+          openConfirmModal('Delete Journal Entry', 'Are you sure you want to permanently erase this journal entry?', () => {
+            state.journal = state.journal.filter(x => x.id !== id);
+            saveState();
+            showToast('Journal entry deleted');
+            renderJournal();
+            updateGlobalBadges();
+          });
+        });
+      });
+    }
+
+    document.getElementById('journalSearchInput').addEventListener('input', renderJournal);
+    document.getElementById('journalMoodFilter').addEventListener('change', renderJournal);
+    document.getElementById('journalPersonFilter').addEventListener('change', renderJournal);
+
+    document.getElementById('openAddJournalModalBtn').addEventListener('click', () => {
+      document.getElementById('journalForm').reset();
+      document.getElementById('journalEditId').value = '';
+      document.getElementById('journalDate').value = getTodayString();
+      document.getElementById('journalTime').value = getCurrentTimeString();
+      document.getElementById('journalModalTitle').textContent = 'Write Daily Journal Entry';
+      document.getElementById('journalModal').classList.remove('hidden');
+    });
+
+    document.getElementById('journalForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('journalEditId').value;
+      const date = document.getElementById('journalDate').value;
+      const time = document.getElementById('journalTime').value || getCurrentTimeString();
+      const mood = document.getElementById('journalMood').value;
+      const title = document.getElementById('journalTitle').value.trim();
+      const explicitPeople = document.getElementById('journalPeopleModalInput').value;
+      const tags = document.getElementById('journalTags').value.split(',').map(s => s.trim().replace(/^#/, '')).filter(Boolean);
+      const content = document.getElementById('journalBody').value.trim();
+
+      if (!title || !content) return;
+
+      const extracted = extractPeopleAndThoughts(content, explicitPeople);
+      const peopleNames = extracted.map(x => x.name);
+
+      if (id) {
+        const item = state.journal.find(x => x.id === id);
+        if (item) {
+          Object.assign(item, { date, time, mood, title, tags, people: peopleNames, content });
+        }
+      } else {
+        state.journal.unshift({
+          id: 'jn-' + Date.now(),
+          date,
+          time,
+          mood,
+          energy: 'Balanced 🔋',
+          weather: '🏠 Home',
+          title,
+          tags,
+          people: peopleNames,
+          content
+        });
+      }
+
+      syncExtractedPeopleToDossier(extracted, { date, time, mood, title });
+      saveState();
+      document.getElementById('journalModal').classList.add('hidden');
+      showToast('Journal entry & person thoughts saved!');
+      renderJournal();
+      updateGlobalBadges();
+    });
+
+    // ================= 4. PEOPLE & THOUGHTS MODULE =================
+    function renderPeople() {
+      const container = document.getElementById('peopleGridContainer');
+      const search = (document.getElementById('peopleSearchInput').value || '').toLowerCase();
+      const relFilter = document.getElementById('peopleRelationFilter').value;
+
+      container.innerHTML = '';
+
+      let list = (state.people || []).slice();
+      if (relFilter !== 'all') {
+        list = list.filter(p => p.relation === relFilter);
+      }
+      if (search) {
+        list = list.filter(p =>
+          (p.name && p.name.toLowerCase().includes(search)) ||
+          (p.summary && p.summary.toLowerCase().includes(search)) ||
+          (p.relation && p.relation.toLowerCase().includes(search)) ||
+          (p.thoughts && p.thoughts.some(t => t.text.toLowerCase().includes(search)))
+        );
+      }
+
+      if (list.length === 0) {
+        container.innerHTML = `<div class="col-span-full p-12 text-center text-slate-500 bento-card text-xs">No people profiles match your search. Mention <span class="text-fuchsia-400 font-mono">@Name</span> in any journal entry or click "Add Person / Thought" above!</div>`;
+        return;
+      }
+
+      list.forEach(person => {
+        const card = document.createElement('div');
+        card.className = 'bento-card p-5 flex flex-col justify-between space-y-4';
+        const initials = (person.name || 'P').slice(0, 2).toUpperCase();
+        const thoughtsHtml = (person.thoughts || []).slice(0, 5).map(t => `
+          <div class="p-2.5 rounded-xl bg-slate-950 border border-slate-800/90 space-y-1">
+            <div class="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+              <span>📅 ${formatDate(t.date)} ${t.time ? '• ' + formatTime12h(t.time) : ''}</span>
+              <span class="text-fuchsia-300 truncate max-w-[130px]">${escapeHtml(t.entryTitle || 'Note')}</span>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">"${escapeHtml(t.text)}"</p>
+          </div>
+        `).join('');
+
+        card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex items-start justify-between gap-2">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-fuchsia-600 to-indigo-600 flex items-center justify-center font-bold text-white text-sm shadow-md">
+                  ${escapeHtml(initials)}
+                </div>
+                <div>
+                  <h3 class="text-base font-bold text-white">@${escapeHtml(person.name)}</h3>
+                  <div class="flex items-center gap-1.5 mt-0.5">
+                    <span class="text-[10px] px-2 py-0.5 rounded bg-fuchsia-500/15 text-fuchsia-300 font-medium">${escapeHtml(person.relation || 'Friend')}</span>
+                    <span class="text-[10px] text-slate-400">${escapeHtml(person.vibe || '')}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1">
+                <button type="button" data-edit-person="${person.id}" class="text-slate-400 hover:text-white p-1 text-xs" title="Edit">✎</button>
+                <button type="button" data-del-person="${person.id}" class="text-slate-400 hover:text-rose-400 p-1 text-xs" title="Delete">🗑</button>
+              </div>
+            </div>
+
+            <!-- Core Summary: What I Think About Them -->
+            <div class="p-3 rounded-xl bg-fuchsia-950/20 border border-fuchsia-500/30">
+              <div class="text-[10px] uppercase tracking-wider text-fuchsia-300 font-semibold mb-1">What I Think About ${escapeHtml(person.name)}</div>
+              <p class="text-xs text-slate-200 leading-relaxed">${escapeHtml(person.summary || 'No summary added yet.')}</p>
+            </div>
+
+            <!-- Timeline of Journal Mentions -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between text-[11px] text-slate-400 font-medium">
+                <span>Journal Thoughts & Mentions (${(person.thoughts || []).length})</span>
+              </div>
+              <div class="space-y-2 max-h-48 overflow-y-auto pr-1">
+                ${thoughtsHtml || `<div class="text-xs text-slate-500 italic">No journal mentions recorded yet.</div>`}
+              </div>
+            </div>
+          </div>
+
+          <button type="button" data-journal-about="${escapeHtml(person.name)}" class="w-full py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-fuchsia-300 text-xs font-medium transition">
+            + Write About @${escapeHtml(person.name)} in Journal
+          </button>
+        `;
+        container.appendChild(card);
+      });
+
+      container.querySelectorAll('[data-edit-person]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const p = state.people.find(x => x.id === e.currentTarget.dataset.editPerson);
+          if (p) {
+            document.getElementById('personEditId').value = p.id;
+            document.getElementById('personNameInput').value = p.name;
+            document.getElementById('personRelationInput').value = p.relation || 'Friend';
+            document.getElementById('personVibeInput').value = p.vibe || '🤝 Trusted & Reliable';
+            document.getElementById('personSummaryInput').value = p.summary || '';
+            document.getElementById('personNewThoughtInput').value = '';
+            document.getElementById('personModalTitle').textContent = `Edit Thoughts on @${p.name}`;
+            document.getElementById('personModal').classList.remove('hidden');
+          }
+        });
+      });
+
+      container.querySelectorAll('[data-del-person]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.currentTarget.dataset.delPerson;
+          openConfirmModal('Remove Person Dossier', 'Delete this person profile and their extracted thought log?', () => {
+            state.people = state.people.filter(x => x.id !== id);
+            saveState();
+            showToast('Person dossier removed');
+            renderPeople();
+            updateGlobalBadges();
+          });
+        });
+      });
+
+      container.querySelectorAll('[data-journal-about]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const name = e.currentTarget.dataset.journalAbout;
+          switchTab('journal');
+          const bodyEl = document.getElementById('studioBody');
+          bodyEl.value = (bodyEl.value ? bodyEl.value + '\n' : '') + `@${name} `;
+          document.getElementById('studioPeopleInput').value = name;
+          bodyEl.focus();
+          updateLiveStudioExtractor();
+        });
+      });
+    }
+
+    document.getElementById('peopleSearchInput').addEventListener('input', renderPeople);
+    document.getElementById('peopleRelationFilter').addEventListener('change', renderPeople);
+
+    document.getElementById('openAddPersonModalBtn').addEventListener('click', () => {
+      document.getElementById('personForm').reset();
+      document.getElementById('personEditId').value = '';
+      document.getElementById('personModalTitle').textContent = 'Add Person & What I Think About Them';
+      document.getElementById('personModal').classList.remove('hidden');
+    });
+
+    document.getElementById('personForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('personEditId').value;
+      const name = document.getElementById('personNameInput').value.trim().replace(/^@/, '');
+      const relation = document.getElementById('personRelationInput').value;
+      const vibe = document.getElementById('personVibeInput').value;
+      const summary = document.getElementById('personSummaryInput').value.trim();
+      const newThought = document.getElementById('personNewThoughtInput').value.trim();
+
+      if (!name || !summary) return;
+
+      if (id) {
+        const p = state.people.find(x => x.id === id);
+        if (p) {
+          p.name = name;
+          p.relation = relation;
+          p.vibe = vibe;
+          p.summary = summary;
+          if (newThought) {
+            p.thoughts = p.thoughts || [];
+            p.thoughts.unshift({
+              date: getTodayString(),
+              time: getCurrentTimeString(),
+              mood: 'good',
+              entryTitle: 'Direct Dossier Note',
+              text: newThought
+            });
+          }
+        }
+      } else {
+        const existing = state.people.find(x => x.name.toLowerCase() === name.toLowerCase());
+        if (existing) {
+          existing.relation = relation;
+          existing.vibe = vibe;
+          existing.summary = summary;
+          if (newThought) {
+            existing.thoughts.unshift({
+              date: getTodayString(),
+              time: getCurrentTimeString(),
+              mood: 'good',
+              entryTitle: 'Direct Dossier Note',
+              text: newThought
+            });
+          }
+        } else {
+          state.people.unshift({
+            id: 'p-' + Date.now(),
+            name,
+            relation,
+            vibe,
+            summary,
+            thoughts: newThought ? [{
+              date: getTodayString(),
+              time: getCurrentTimeString(),
+              mood: 'good',
+              entryTitle: 'Direct Dossier Note',
+              text: newThought
+            }] : []
+          });
+        }
+      }
+
+      saveState();
+      document.getElementById('personModal').classList.add('hidden');
+      showToast(`Saved thoughts for @${name}!`);
+      renderPeople();
+      updateGlobalBadges();
+    });
+
+    // ================= 5. MONEY MANAGEMENT MODULE =================
+    function renderMoney() {
+      let income = 0, expense = 0;
+      const categoryMap = {};
+
+      state.transactions.forEach(t => {
+        const amt = Number(t.amount);
+        if (t.type === 'income') income += amt;
+        else {
+          expense += amt;
+          categoryMap[t.category] = (categoryMap[t.category] || 0) + amt;
+        }
+      });
+
+      const net = income - expense;
+      const rate = income > 0 ? Math.round((net / income) * 100) : 0;
+
+      document.getElementById('moneyTotalIncome').textContent = formatCurrency(income);
+      document.getElementById('moneyTotalExpense').textContent = formatCurrency(expense);
+      document.getElementById('moneyNetSavings').textContent = formatCurrency(net);
+      document.getElementById('moneySavingsRate').textContent = `${rate}% savings rate`;
+
+      const barsContainer = document.getElementById('categoryBarsContainer');
+      barsContainer.innerHTML = '';
+      const sortedCats = Object.entries(categoryMap).sort((a, b) => b[1] - a[1]);
+
+      if (sortedCats.length === 0) {
+        barsContainer.innerHTML = `<div class="text-xs text-slate-500 py-2">No expenses logged yet.</div>`;
+      } else {
+        sortedCats.forEach(([cat, catAmt]) => {
+          const pct = expense > 0 ? Math.round((catAmt / expense) * 100) : 0;
+          const bar = document.createElement('div');
+          bar.className = 'space-y-1';
+          bar.innerHTML = `
+            <div class="flex items-center justify-between text-xs">
+              <span class="text-slate-300 font-medium">${escapeHtml(cat)}</span>
+              <span class="text-slate-400 font-mono">${formatCurrency(catAmt)} (${pct}%)</span>
+            </div>
+            <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+              <div class="bg-indigo-500 h-full rounded-full transition-all duration-500" style="width: ${pct}%"></div>
+            </div>
+          `;
+          barsContainer.appendChild(bar);
+        });
+      }
+
+      renderTxTable();
+    }
+
+    function renderTxTable() {
+      const tbody = document.getElementById('txTableBody');
+      const search = (document.getElementById('txSearchInput').value || '').toLowerCase();
+      const filter = document.getElementById('txTypeFilter').value;
+
+      tbody.innerHTML = '';
+      let list = state.transactions.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
+      if (filter !== 'all') list = list.filter(t => t.type === filter);
+      if (search) list = list.filter(t => (t.note && t.note.toLowerCase().includes(search)) || (t.category && t.category.toLowerCase().includes(search)));
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="px-5 py-8 text-center text-slate-500 text-xs">No matching transactions found.</td></tr>`;
+        return;
+      }
+
+      list.forEach(t => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-slate-900/40 transition';
+        const isIncome = t.type === 'income';
+        tr.innerHTML = `
+          <td class="px-4 py-3 whitespace-nowrap text-slate-400 font-mono text-[11px]">${formatDate(t.date)}</td>
+          <td class="px-4 py-3 font-medium text-slate-200">${escapeHtml(t.note)}</td>
+          <td class="px-4 py-3"><span class="px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-800 text-slate-300">${escapeHtml(t.category)}</span></td>
+          <td class="px-4 py-3 text-right font-mono font-semibold ${isIncome ? 'text-emerald-400' : 'text-rose-400'}">${isIncome ? '+' : '-'}${formatCurrency(t.amount)}</td>
+          <td class="px-4 py-3 text-right">
+            <button type="button" data-del-tx="${t.id}" class="text-slate-500 hover:text-rose-400 transition p-1" title="Delete">🗑</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      tbody.querySelectorAll('[data-del-tx]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.currentTarget.dataset.delTx;
+          openConfirmModal('Delete Transaction', 'Delete this transaction record?', () => {
+            state.transactions = state.transactions.filter(x => x.id !== id);
+            saveState();
+            showToast('Transaction removed');
+            renderMoney();
+            updateGlobalBadges();
+          });
+        });
+      });
+    }
+
+    document.getElementById('txSearchInput').addEventListener('input', renderTxTable);
+    document.getElementById('txTypeFilter').addEventListener('change', renderTxTable);
+    document.getElementById('openAddTxModalBtn').addEventListener('click', () => {
+      document.getElementById('addTxForm').reset();
+      document.getElementById('txDate').value = getTodayString();
+      document.getElementById('addTxModal').classList.remove('hidden');
+    });
+
+    document.getElementById('addTxForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const type = document.querySelector('input[name="txType"]:checked').value;
+      const amount = parseFloat(document.getElementById('txAmount').value);
+      const category = document.getElementById('txCategory').value;
+      const date = document.getElementById('txDate').value;
+      const note = document.getElementById('txNote').value.trim();
+      if (!amount || amount <= 0 || !note) return;
+
+      state.transactions.unshift({ id: 'tx-' + Date.now(), type, amount, category, date, note });
+      saveState();
+      document.getElementById('addTxModal').classList.add('hidden');
+      showToast('Transaction recorded!');
+      renderMoney();
+      updateGlobalBadges();
+    });
+
+    // ================= 6. TIME MANAGEMENT & FOCUS =================
+    let pomoInterval = null;
+    let pomoSecondsRemaining = 25 * 60;
+    let pomoTotalDuration = 25 * 60;
+    let pomoIsRunning = false;
+    let pomosDoneToday = 0;
+
+    function formatTime(secs) {
+      const m = Math.floor(secs / 60);
+      const s = secs % 60;
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+
+    function updatePomoDisplay() {
+      document.getElementById('pomoTimerDisplay').textContent = formatTime(pomoSecondsRemaining);
+    }
+
+    function playAudioChime() {
+      try {
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3);
+        gain.gain.setValueAtTime(0.2, ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.8);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.8);
+      } catch (err) {
+        console.warn('Audio Context error', err);
+      }
+    }
+
+    const pomoToggleBtn = document.getElementById('pomoToggleBtn');
+    const pomoToggleText = document.getElementById('pomoToggleText');
+
+    pomoToggleBtn.addEventListener('click', () => {
+      if (pomoIsRunning) {
+        clearInterval(pomoInterval);
+        pomoIsRunning = false;
+        pomoToggleText.textContent = 'Resume';
+      } else {
+        pomoIsRunning = true;
+        pomoToggleText.textContent = 'Pause';
+        pomoInterval = setInterval(() => {
+          if (pomoSecondsRemaining > 0) {
+            pomoSecondsRemaining--;
+            updatePomoDisplay();
+          } else {
+            clearInterval(pomoInterval);
+            pomoIsRunning = false;
+            pomoToggleText.textContent = 'Start Session';
+            pomosDoneToday++;
+            document.getElementById('pomoCyclesCompleted').textContent = pomosDoneToday;
+            playAudioChime();
+            showToast('Pomodoro cycle complete!');
+          }
+        }, 1000);
+      }
+    });
+
+    document.getElementById('pomoResetBtn').addEventListener('click', () => {
+      clearInterval(pomoInterval);
+      pomoIsRunning = false;
+      pomoSecondsRemaining = pomoTotalDuration;
+      pomoToggleText.textContent = 'Start Session';
+      updatePomoDisplay();
+    });
+
+    document.querySelectorAll('.pomo-mode-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.pomo-mode-btn').forEach(b => {
+          b.classList.remove('bg-indigo-600', 'text-white');
+          b.classList.add('text-slate-400');
+        });
+        btn.classList.add('bg-indigo-600', 'text-white');
+        btn.classList.remove('text-slate-400');
+        clearInterval(pomoInterval);
+        pomoIsRunning = false;
+        pomoToggleText.textContent = 'Start Session';
+        const mode = btn.dataset.pomoMode;
+        if (mode === 'work') pomoTotalDuration = 25 * 60;
+        else if (mode === 'short') pomoTotalDuration = 5 * 60;
+        else if (mode === 'long') pomoTotalDuration = 15 * 60;
+        pomoSecondsRemaining = pomoTotalDuration;
+        updatePomoDisplay();
+      });
+    });
+
+    let currentTaskFilter = 'all';
+    function renderTime() {
+      renderTaskList();
+      renderHabitList();
+    }
+
+    function renderTaskList() {
+      const container = document.getElementById('tasksListContainer');
+      container.innerHTML = '';
+      let list = state.tasks.slice().sort((a, b) => (a.completed !== b.completed ? (a.completed ? 1 : -1) : new Date(a.dueDate) - new Date(b.dueDate)));
+      if (currentTaskFilter === 'pending') list = list.filter(t => !t.completed);
+      if (currentTaskFilter === 'completed') list = list.filter(t => t.completed);
+
+      if (list.length === 0) {
+        container.innerHTML = `<div class="p-6 text-center text-slate-500 text-xs">No tasks match this filter.</div>`;
+        return;
+      }
+
+      list.forEach(task => {
+        const el = document.createElement('div');
+        el.className = `flex items-center justify-between p-3 rounded-xl border transition ${
+          task.completed ? 'bg-slate-950/40 border-slate-900 opacity-60' : 'bg-slate-950 border-slate-800'
+        }`;
+        el.innerHTML = `
+          <div class="flex items-center gap-2.5 overflow-hidden">
+            <input type="checkbox" data-task-toggle="${task.id}" ${task.completed ? 'checked' : ''} class="w-4 h-4 rounded border-slate-700 bg-slate-900 text-cyan-600 cursor-pointer">
+            <div class="truncate">
+              <span class="text-xs font-medium ${task.completed ? 'line-through text-slate-500' : 'text-slate-200'}">${escapeHtml(task.title)}</span>
+              <div class="text-[10px] text-slate-400 font-mono">Due: ${formatDate(task.dueDate)}</div>
+            </div>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <span class="text-[10px] px-2 py-0.5 rounded font-mono ${
+              task.priority === 'high' ? 'bg-rose-500/20 text-rose-300' : (task.priority === 'medium' ? 'bg-amber-500/20 text-amber-300' : 'bg-slate-800 text-slate-400')
+            }">${task.priority}</span>
+            <button type="button" data-task-del="${task.id}" class="text-slate-500 hover:text-rose-400 p-1">✕</button>
+          </div>
+        `;
+        container.appendChild(el);
+      });
+
+      container.querySelectorAll('[data-task-toggle]').forEach(cb => {
+        cb.addEventListener('change', (e) => {
+          const t = state.tasks.find(x => x.id === e.target.dataset.taskToggle);
+          if (t) {
+            t.completed = e.target.checked;
+            saveState();
+            renderTaskList();
+            updateGlobalBadges();
+          }
+        });
+      });
+
+      container.querySelectorAll('[data-task-del]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          state.tasks = state.tasks.filter(x => x.id !== e.currentTarget.dataset.taskDel);
+          saveState();
+          showToast('Task removed');
+          renderTaskList();
+          updateGlobalBadges();
+        });
+      });
+    }
+
+    document.querySelectorAll('.task-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.task-filter-btn').forEach(b => {
+          b.classList.remove('bg-slate-800', 'text-white');
+          b.classList.add('text-slate-400');
+        });
+        btn.classList.add('bg-slate-800', 'text-white');
+        btn.classList.remove('text-slate-400');
+        currentTaskFilter = btn.dataset.taskFilter;
+        renderTaskList();
+      });
+    });
+
+    document.getElementById('openAddTaskModalBtn').addEventListener('click', () => {
+      document.getElementById('addTaskForm').reset();
+      document.getElementById('taskDueDate').value = getTodayString();
+      document.getElementById('addTaskModal').classList.remove('hidden');
+    });
+
+    document.getElementById('addTaskForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const title = document.getElementById('taskTitle').value.trim();
+      const dueDate = document.getElementById('taskDueDate').value;
+      const priority = document.getElementById('taskPriority').value;
+      const category = document.getElementById('taskCategory').value.trim();
+      if (!title) return;
+
+      state.tasks.unshift({ id: 'tk-' + Date.now(), title, dueDate, priority, category, completed: false });
+      saveState();
+      document.getElementById('addTaskModal').classList.add('hidden');
+      showToast('Focus task created!');
+      renderTaskList();
+      renderOverview();
+      updateGlobalBadges();
+    });
+
+    function renderHabitList() {
+      const container = document.getElementById('habitsListContainer');
+      container.innerHTML = '';
+      if (state.habits.length === 0) {
+        container.innerHTML = `<div class="p-6 text-center text-slate-500 text-xs">No habits configured yet.</div>`;
+        return;
+      }
+
+      const days = [];
+      for (let i = 4; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        days.push({ key, label: d.toLocaleDateString('en-US', { weekday: 'narrow' }), isToday: i === 0 });
+      }
+
+      state.habits.forEach(habit => {
+        const el = document.createElement('div');
+        el.className = 'p-3 bg-slate-950 border border-slate-800 rounded-xl space-y-2';
+        const dayButtons = days.map(d => {
+          const isDone = habit.history && habit.history[d.key];
+          return `
+            <button type="button" data-habit-day="${habit.id}|${d.key}" class="w-7 h-7 rounded-lg text-xs font-mono font-bold flex items-center justify-center transition ${
+              isDone ? 'bg-amber-500 text-slate-950' : (d.isToday ? 'bg-slate-800 text-slate-300 border border-amber-500/50' : 'bg-slate-900 text-slate-500')
+            }">${d.label}</button>
+          `;
+        }).join('');
+
+        el.innerHTML = `
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold text-slate-200">${escapeHtml(habit.name)}</span>
+            <button type="button" data-del-habit="${habit.id}" class="text-slate-500 hover:text-rose-400 p-1">✕</button>
+          </div>
+          <div class="flex items-center justify-between pt-1">
+            <span class="text-[10px] text-slate-400">Past 5 days</span>
+            <div class="flex items-center gap-1.5">${dayButtons}</div>
+          </div>
+        `;
+        container.appendChild(el);
+      });
+
+      container.querySelectorAll('[data-habit-day]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const [hId, dayKey] = e.currentTarget.dataset.habitDay.split('|');
+          const h = state.habits.find(x => x.id === hId);
+          if (h) {
+            h.history = h.history || {};
+            h.history[dayKey] = !h.history[dayKey];
+            saveState();
+            renderHabitList();
+          }
+        });
+      });
+
+      container.querySelectorAll('[data-del-habit]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.currentTarget.dataset.delHabit;
+          openConfirmModal('Delete Habit', 'Stop tracking this habit?', () => {
+            state.habits = state.habits.filter(x => x.id !== id);
+            saveState();
+            renderHabitList();
+          });
+        });
+      });
+    }
+
+    document.getElementById('openAddHabitModalBtn').addEventListener('click', () => {
+      document.getElementById('addHabitForm').reset();
+      document.getElementById('addHabitModal').classList.remove('hidden');
+    });
+
+    document.getElementById('addHabitForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('habitNameInput').value.trim();
+      if (!name) return;
+      state.habits.push({ id: 'hb-' + Date.now(), name, history: {} });
+      saveState();
+      document.getElementById('addHabitModal').classList.add('hidden');
+      showToast('New habit added!');
+      renderHabitList();
+    });
+
+    // ================= 7. PASSWORD VAULT MODULE =================
+    function renderPasswords() {
+      const lockBadge = document.getElementById('vaultStatusBadge');
+      const lockBtn = document.getElementById('lockVaultBtn');
+      const lockedView = document.getElementById('vaultLockedView');
+      const unlockedView = document.getElementById('vaultUnlockedView');
+
+      if (!state.vault.isUnlocked) {
+        lockBadge.textContent = 'Locked';
+        lockBtn.classList.add('hidden');
+        lockedView.classList.remove('hidden');
+        unlockedView.classList.add('hidden');
+      } else {
+        lockBadge.textContent = 'Unlocked';
+        lockBtn.classList.remove('hidden');
+        lockedView.classList.add('hidden');
+        unlockedView.classList.remove('hidden');
+        generatePasswordPreset();
+        renderVaultCards();
+      }
+    }
+
+    document.getElementById('vaultUnlockForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const entered = document.getElementById('masterPasswordInput').value;
+      if (!entered) return;
+      const hash = await sha256(entered);
+      if (!state.vault.masterHash) {
+        state.vault.masterHash = hash;
+        state.vault.isUnlocked = true;
+        saveState();
+        showToast('Master password set! Vault unlocked.');
+        document.getElementById('masterPasswordInput').value = '';
+        renderPasswords();
+      } else if (state.vault.masterHash === hash) {
+        state.vault.isUnlocked = true;
+        document.getElementById('masterPasswordInput').value = '';
+        showToast('Vault unlocked');
+        renderPasswords();
+      } else {
+        showToast('Incorrect master password', 'error');
+      }
+    });
+
+    document.getElementById('lockVaultBtn').addEventListener('click', () => {
+      state.vault.isUnlocked = false;
+      showToast('Vault locked');
+      renderPasswords();
+    });
+
+    function renderVaultCards() {
+      const container = document.getElementById('vaultCardsContainer');
+      const search = (document.getElementById('vaultSearchInput').value || '').toLowerCase();
+      container.innerHTML = '';
+
+      let list = state.vault.items || [];
+      if (search) {
+        list = list.filter(i =>
+          (i.title && i.title.toLowerCase().includes(search)) ||
+          (i.username && i.username.toLowerCase().includes(search)) ||
+          (i.category && i.category.toLowerCase().includes(search))
+        );
+      }
+
+      list.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'bento-card p-5 space-y-3';
+        card.innerHTML = `
+          <div class="flex items-start justify-between">
+            <div>
+              <span class="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-slate-800 text-slate-400">${escapeHtml(item.category || 'General')}</span>
+              <h4 class="text-sm font-bold text-white mt-1">${escapeHtml(item.title)}</h4>
+            </div>
+            <div class="flex items-center gap-1">
+              <button type="button" data-edit-pw="${item.id}" class="text-slate-400 hover:text-white p-1">✎</button>
+              <button type="button" data-del-pw="${item.id}" class="text-slate-400 hover:text-rose-400 p-1">🗑</button>
+            </div>
+          </div>
+          <div class="space-y-2 text-xs">
+            <div class="flex items-center justify-between p-2 rounded-xl bg-slate-950 border border-slate-800/80">
+              <span class="text-slate-300 text-[11px] truncate">${escapeHtml(item.username)}</span>
+              <button type="button" data-copy-val="${escapeHtml(item.username)}" data-copy-label="Username" class="text-indigo-400 text-[11px] font-medium ml-2">Copy</button>
+            </div>
+            <div class="flex items-center justify-between p-2 rounded-xl bg-slate-950 border border-slate-800/80">
+              <span id="pwMask-${item.id}" class="text-slate-400 font-mono text-[11px]">••••••••••••</span>
+              <div class="flex items-center gap-2 ml-2">
+                <button type="button" data-toggle-pw="${item.id}" class="text-slate-400 hover:text-white text-[11px]">Show</button>
+                <button type="button" data-copy-val="${escapeHtml(item.password)}" data-copy-label="Password" class="text-rose-400 text-[11px] font-medium">Copy</button>
+              </div>
+            </div>
+          </div>
+          ${item.notes ? `<p class="text-[11px] text-slate-400 italic">${escapeHtml(item.notes)}</p>` : ''}
+        `;
+        container.appendChild(card);
+      });
+
+      container.querySelectorAll('[data-copy-val]').forEach(btn => {
+        btn.addEventListener('click', (e) => copyToClipboard(e.currentTarget.dataset.copyVal, e.currentTarget.dataset.copyLabel));
+      });
+
+      container.querySelectorAll('[data-toggle-pw]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.currentTarget.dataset.togglePw;
+          const targetItem = state.vault.items.find(x => x.id === id);
+          const maskEl = document.getElementById(`pwMask-${id}`);
+          if (targetItem && maskEl) {
+            if (maskEl.textContent === '••••••••••••') {
+              maskEl.textContent = targetItem.password;
+              e.currentTarget.textContent = 'Hide';
+            } else {
+              maskEl.textContent = '••••••••••••';
+              e.currentTarget.textContent = 'Show';
+            }
+          }
+        });
+      });
+
+      container.querySelectorAll('[data-edit-pw]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const item = state.vault.items.find(x => x.id === e.currentTarget.dataset.editPw);
+          if (item) {
+            document.getElementById('passwordEditId').value = item.id;
+            document.getElementById('pwTitle').value = item.title;
+            document.getElementById('pwUsername').value = item.username;
+            document.getElementById('pwPassword').value = item.password;
+            document.getElementById('pwCategory').value = item.category || 'Personal';
+            document.getElementById('pwUrl').value = item.url || '';
+            document.getElementById('pwNotes').value = item.notes || '';
+            document.getElementById('passwordModal').classList.remove('hidden');
+          }
+        });
+      });
+
+      container.querySelectorAll('[data-del-pw]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const id = e.currentTarget.dataset.delPw;
+          openConfirmModal('Delete Password', 'Delete this credential?', () => {
+            state.vault.items = state.vault.items.filter(x => x.id !== id);
+            saveState();
+            renderVaultCards();
+          });
+        });
+      });
+    }
+
+    document.getElementById('vaultSearchInput').addEventListener('input', renderVaultCards);
+
+    function generatePasswordPreset() {
+      const uppers = 'ABCDEFGHJKLMNPQRSTUVWXYZ';
+      const lowers = 'abcdefghijkmnopqrstuvwxyz';
+      const nums = '23456789';
+      const syms = '!@#$%^&*()_+-=[]{}';
+      let charset = '';
+      if (document.getElementById('genOptUpper').checked) charset += uppers;
+      if (document.getElementById('genOptLower').checked) charset += lowers;
+      if (document.getElementById('genOptNum').checked) charset += nums;
+      if (document.getElementById('genOptSym').checked) charset += syms;
+      if (!charset) charset = uppers + lowers + nums;
+      let result = '';
+      for (let i = 0; i < 16; i++) result += charset.charAt(Math.floor(Math.random() * charset.length));
+      document.getElementById('generatedPasswordOutput').value = result;
+    }
+
+    document.getElementById('regeneratePassBtn').addEventListener('click', generatePasswordPreset);
+    document.querySelectorAll('#genOptUpper, #genOptLower, #genOptNum, #genOptSym').forEach(el => el.addEventListener('change', generatePasswordPreset));
+    document.getElementById('copyGenPassBtn').addEventListener('click', () => {
+      const pass = document.getElementById('generatedPasswordOutput').value;
+      if (pass) copyToClipboard(pass, 'Generated password');
+    });
+    document.getElementById('fillGenPasswordBtn').addEventListener('click', () => {
+      const pass = document.getElementById('generatedPasswordOutput').value;
+      if (pass) document.getElementById('pwPassword').value = pass;
+    });
+    document.getElementById('toggleModalPwVisibility').addEventListener('click', () => {
+      const inp = document.getElementById('pwPassword');
+      inp.type = inp.type === 'password' ? 'text' : 'password';
+    });
+    document.getElementById('openAddPasswordModalBtn').addEventListener('click', () => {
+      document.getElementById('passwordForm').reset();
+      document.getElementById('passwordEditId').value = '';
+      document.getElementById('passwordModal').classList.remove('hidden');
+    });
+    document.getElementById('passwordForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('passwordEditId').value;
+      const title = document.getElementById('pwTitle').value.trim();
+      const username = document.getElementById('pwUsername').value.trim();
+      const password = document.getElementById('pwPassword').value;
+      const category = document.getElementById('pwCategory').value;
+      const url = document.getElementById('pwUrl').value.trim();
+      const notes = document.getElementById('pwNotes').value.trim();
+      if (!title || !username || !password) return;
+      if (id) {
+        const item = state.vault.items.find(x => x.id === id);
+        if (item) Object.assign(item, { title, username, password, category, url, notes });
+      } else {
+        state.vault.items.push({ id: 'pw-' + Date.now(), title, username, password, category, url, notes });
+      }
+      saveState();
+      document.getElementById('passwordModal').classList.add('hidden');
+      showToast('Credentials saved');
+      renderVaultCards();
+    });
+
+    // ================= 8. SETTINGS & LOCAL BACKUP =================
+    function renderSettings() {
+      document.getElementById('currencySelect').value = state.user.currency || '₹';
+      document.getElementById('userDisplayNameInput').value = state.user.name || '';
+    }
+
+    document.getElementById('currencySelect').addEventListener('change', (e) => {
+      state.user.currency = e.target.value;
+      saveState();
+      showToast(`Currency changed to ${state.user.currency}`);
+      renderOverview();
+      updateGlobalBadges();
+    });
+
+    document.getElementById('userDisplayNameInput').addEventListener('input', (e) => {
+      state.user.name = e.target.value.trim() || 'You';
+      saveState();
+      renderOverview();
+    });
+
+    document.getElementById('exportDataBtn').addEventListener('click', () => {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `personal_life_os_backup_${getTodayString()}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+      showToast('Backup JSON downloaded!');
+    });
+
+    document.getElementById('importDataInput').addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (event) => {
+        try {
+          const imported = JSON.parse(event.target.result);
+          if (imported && (imported.transactions || imported.journal || imported.tasks || imported.vault)) {
+            state = {
+              ...INITIAL_STATE,
+              ...imported,
+              vault: { ...INITIAL_STATE.vault, ...(imported.vault || {}), isUnlocked: false }
+            };
+            saveState();
+            showToast('Backup restored!');
+            switchTab('overview');
+          } else {
+            showToast('Invalid backup file', 'error');
+          }
+        } catch (err) {
+          showToast('Failed to parse JSON backup', 'error');
+        }
+      };
+      reader.readAsText(file);
+      e.target.value = '';
+    });
+
+    document.getElementById('resetAllDataBtn').addEventListener('click', () => {
+      openConfirmModal('Reset All Data', 'Clear all transactions, journal entries, people thoughts, schedules, tasks, and passwords back to defaults?', () => {
+        state = JSON.parse(JSON.stringify(INITIAL_STATE));
+        saveState();
+        showToast('All local data reset to defaults');
+        switchTab('overview');
+      });
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      switchTab('overview');
+    });
+  </script>
+</body>
+</html>
